@@ -88,7 +88,6 @@ else
   nnoremap <leader>nhl :nohl<CR>
   nnoremap <leader>qns :qa!<CR>
   nnoremap <leader>lll <C-w>v<CR>
-  nnoremap <leader>nt :NERDTreeToggle<CR>
   "quick reload
   nnoremap <leader>rl :source %<CR>
   
