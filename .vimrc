@@ -2,8 +2,6 @@ if exists('g:vscode')
   echo 'VSCODE YA!'
 else
   call plug#begin('~/.config/nvim/autoload')
-  Plug 'scrooloose/nerdtree'
-  Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
   Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'flazz/vim-colorschemes'
@@ -31,12 +29,13 @@ else
   set noerrorbells tabstop=4 softtabstop=4
   set nowrap
   set smartcase
-  set cmdheight=2
+  "set cmdheight=2
   set expandtab
   set number relativenumber
   set noshowmode
   set termguicolors
   set encoding=utf-8
+  set updatetime=300
   
   silent! colorscheme horizon
  
