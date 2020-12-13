@@ -1,8 +1,12 @@
+"Install neovim -- https://github.com/neovim/neovim
+"Install ranger -- https://ranger.github.io 
+"Install ripgrep -- https://github.com/BurntSushi/ripgrep
+"Install vim-plug -- https://github.com/junegunn/vim-plug
+
 if exists('g:vscode')
   echo 'VSCODE YA!'
 else
   call plug#begin('~/.config/nvim/autoload')
-  Plug 'Xuyuanp/nerdtree-git-plugin'
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'flazz/vim-colorschemes'
   Plug 'nvim-lua/popup.nvim'
@@ -15,7 +19,7 @@ else
   Plug 'itchyny/lightline.vim'
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
-  Plug 'neoclide/coc.nvim', {'brach': 'release'}
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
   call plug#end()
   
   syntax on
@@ -70,6 +74,18 @@ else
           \ <SID>check_back_space() ? "\<TAB>" :
           \ coc#refresh()
   inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~# '\s'
+  endfunction
+
+  " Use <c-space> to trigger completion.
+  if has('nvim')
+    inoremap <silent><expr> <c-space> coc#refresh()
+  else
+    inoremap <silent><expr> <c-@> coc#refresh()
+  endif
   
   " Symbol renaming
   nmap <leader>rn <Plug>(coc-rename)
