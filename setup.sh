@@ -1,4 +1,3 @@
-
 while getopts e:f: flag
 do
     case "${flag}" in
@@ -6,6 +5,14 @@ do
         f) fullname=${OPTARG};;
     esac
 done
+
+#Generate SSH
+ssh-keygen -t ed25519 -C "$email"
+eval `ssh-agent -s`
+#   what if the file exists already?
+sshFile=`sudo find ~/.ssh -name 'gh_du*' '!' -name '*.pub'`
+sshFile=basename $sshFile
+ssh-add ~/.ssh/$sshFile
 
 #Install git
 sudo apt install git
