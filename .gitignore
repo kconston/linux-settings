@@ -1,5 +1,6 @@
 #Ignore everything
 *
+#Except
 !scripts
 !scripts/nv.sh
 !setup.sh
