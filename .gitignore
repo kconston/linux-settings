@@ -1,6 +1,8 @@
 #Ignore everything
 *
-
+!scripts
+!scripts/nv.sh
+!setup.sh
 !.gitignore
 !.vimrc
 !.tmux.conf.local
