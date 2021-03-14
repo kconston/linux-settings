@@ -119,6 +119,14 @@ alias ll='ls -alh'
 
 alias vim='nvim'
 alias vi='nvim'
+alias nv='nv.sh'
+
+if [ -z "SSH_AUTH_SOCK" ] ; then
+	eval `ssh-agent -s`
+	eval `ssh-add`
+fi
+
+export PATH="$HOME/.local/bin:$PATH"
 
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
