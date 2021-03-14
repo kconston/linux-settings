@@ -11,11 +11,6 @@ done
 #Generate SSH
 cd $HOME/.ssh
 ssh-keygen -t ed25519 -C "$email"
-eval `ssh-agent -s`
-#   what if the file exists already?
-sshFile=`sudo find ~/.ssh -name 'gh_du*' '!' -name '*.pub'`
-sshFile=`basename $sshFile`
-ssh-add ~/.ssh/$sshFile
 
 #Install git
 sudo apt install git
@@ -39,8 +34,6 @@ zsh
 
 #Install cmake
 sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
-
-
 
 #Install neovim nightly
 git clone https://github.com/neovim/neovim.git $HOME/neovim
