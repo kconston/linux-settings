@@ -12,8 +12,7 @@ done
 cd $HOME/.ssh
 ssh-keygen -t ed25519 -C "$email"
 
-#Install git
-sudo apt install git
+#Update git
 git config --global user.email "$email"
 git config --global user.name "$fullname" 
 
