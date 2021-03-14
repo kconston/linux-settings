@@ -31,7 +31,7 @@ mv ~/.p10k.zsh ~/.p10k.zsh.bak
 ln -s ~/linux-settings/.p10k.zsh ~/.p10k.zsh
 
 #Install cmake
-sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip build-essential
 
 #Install neovim nightly
 git clone https://github.com/neovim/neovim.git $HOME/neovim
