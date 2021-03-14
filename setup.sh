@@ -15,7 +15,7 @@ echo "Full name value: $fullname"
 sudo apt update
 
 #Generate SSH
-if test -f "$HOME/.ssh/id_ecdsa*"; then
+if [ -f "$HOME/.ssh/id_ecdsa*" ]; then
   echo "SSH file already exists"
 else
   cd $HOME/.ssh
