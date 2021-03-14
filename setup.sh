@@ -38,7 +38,7 @@ git clone https://github.com/neovim/neovim.git $HOME/neovim
 cd $HOME/neovim
 make CMAKE_BUILD_TYPE=Release
 sudo make install
-mkdir $HOME/.local/bin/
+mkdir -p $HOME/.local/bin/
 zsh
 ln -s $HOME/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
 #cp $HOME/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
