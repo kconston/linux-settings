@@ -29,6 +29,7 @@ else
   sudo apt install git
 fi
 
+#Update git
 if [ ! -z ${email+x} ]; then
    echo "Setting user.email to $email"
    git config --global user.email "$email"
@@ -69,10 +70,11 @@ if [ -f "$HOME/.p10k.zsh" ]; then
   mv ~/.p10k.zsh ~/.p10k.zsh.bak
 fi
 ln -s ~/linux-settings/.p10k.zsh ~/.p10k.zsh
-#reload zsh
 
 #Install cmake
 sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
+
+sudo apt build-essential
 
 #Install neovim nightly
 if [ ! -d "$HOME/neovim" ]; then
