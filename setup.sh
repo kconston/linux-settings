@@ -29,7 +29,6 @@ ln -s $HOME/linux-settings/.zshrc $HOME/.zshrc
 git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 mv ~/.p10k.zsh ~/.p10k.zsh.bak
 ln -s ~/linux-settings/.p10k.zsh ~/.p10k.zsh
-zsh
 
 #Install cmake
 sudo apt-get install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
@@ -40,6 +39,7 @@ cd $HOME/neovim
 make CMAKE_BUILD_TYPE=Release
 sudo make install
 mkdir $HOME/.local/bin/
+zsh
 ln -s $HOME/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
 #cp $HOME/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
 chmod u+x $HOME/.local/bin/nv.sh
