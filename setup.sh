@@ -1,5 +1,5 @@
 #!/bin/sh
-h
+
 while getopts e:f: flag
 do
     case "${flag}" in
@@ -64,3 +64,10 @@ sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.
 mkdir -p ~/.config/nvim
 ln -s ~/linux-settings/init.vim ~/.config/nvim/init.vim
 nv +PlugInstall +qall
+
+#Install tmux
+sudo apt install tmux
+cd $HOME 
+git clone https://github.com/gpakosz/.tmux.git
+ln -sf $HOME/.tmux/.tmux.conf
+ln -sf $HOME/linux-settings/.tmux.conf.local
