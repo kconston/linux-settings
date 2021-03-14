@@ -15,7 +15,7 @@ echo "Full name value: $fullname"
 sudo apt update
 
 #Generate SSH
-if test -f "$HOME/.ssh/id_ecdsa"; then
+if test -f "$HOME/.ssh/id_ecdsa*"; then
   echo "SSH file already exists"
 else
   cd $HOME/.ssh
@@ -23,7 +23,7 @@ else
 fi
 
 #Install git
-if command -v git &> /dev/null; then  
+if [ -x "$(command -v git)" ]; then  
   echo "GIT already installed"
 else
   sudo apt install git
@@ -40,7 +40,7 @@ if [ ! -z ${fullname+x} ]; then
 fi
 
 #Install zsh
-if command -v zsh &> /dev/null; then 
+if [ -x "$(command -v zsh)" ]; then
   echo "ZSH already installed"
 else
   sudo apt install zsh
