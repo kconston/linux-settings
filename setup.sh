@@ -88,7 +88,7 @@ fi
 
 
 if [ ! -d "$HOME/.local/bin/" ]; then
-  mkdir $HOME/.local/bin/
+  mkdir -p $HOME/.local/bin/
 else
   echo ".local/bin/ already exists"
 fi
