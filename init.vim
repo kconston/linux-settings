@@ -4,6 +4,7 @@ else
   call plug#begin('~/.config/nvim/autoload')
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'flazz/vim-colorschemes'
+  Plug 'ghifarit53/tokyonight-vim'  
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-lua/telescope.nvim'
@@ -15,11 +16,15 @@ else
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug' ]}
   call plug#end()
   
-  syntax on
   let mapleader = " "
   set hidden
+  set nobackup
+  set nowritebackup
+  set cmdheight=2
+  set shortmess+=c
   set smartindent
   set smarttab
   set splitright
@@ -28,19 +33,24 @@ else
   set noerrorbells tabstop=4 softtabstop=4
   set nowrap
   set smartcase
-  "set cmdheight=2
   set expandtab
   set number relativenumber
   set noshowmode
   set termguicolors
   set encoding=utf-8
   set updatetime=300
-  
-  silent! colorscheme horizon
+
+
+  let g:tokyonight_style = 'night'
+  let g:tokyonight_enable_italic = 0
+  silent! colorscheme tokyonight
  
+  "'' Lightline ''"
   if filereadable(expand("~/.config/nvim/autoload/lightline.vim/plugin/lightline.vim"))
-   let g:lightline = { 'colorscheme': 'horizon'}
+   let g:lightline = { 'colorscheme': 'tokyonight'}
   endif
+
+  autocmd FileType json syntax match Comment +\/\/.\+$+
   
   augroup numbertoggle
     silent autocmd!
@@ -48,13 +58,13 @@ else
     silent autocmd BufLeave,FocusLost,InsertEnter
   augroup END
 
-  " Floaterm
+  "'' Floaterm ''"
   if filereadable(expand("~/.config/nvim/autoload/vim-floaterm/plugin/floaterm.vim"))
     nnoremap <leader>fr :FloatermNew ranger<CR>
     nnoremap <leader>ft :FloatermNew --wintype=floating --autoclose=2<CR>
   endif
   
-  " FZF
+  "'' FZF ''"
   if filereadable(expand("~/.config/nvim/autoload/fzf.vim/plugin/fzf.vim"))
    let $FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{**/node_modules/**,.git/*,**/*.pem}"'
    let $FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
@@ -63,7 +73,21 @@ else
    nnoremap <leader>fg :Rg<CR>
   endif
 
-  " COC
+  "'' COC ''"
+  if filereadable(expand("~/.config/nvim/plugged/coc.nvim/plugin/coc.vim"))
+    let g:coc_global_extensions=[
+      \'coc-groovy',
+      \'coc-angular',
+      \'coc-floaterm',
+      \'coc-highlight',
+      \'coc-html',
+      \'coc-json',
+      \'coc-sh',
+      \'coc-tsserver',
+      \]   
+ endif
+
+
   inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
           \ <SID>check_back_space() ? "\<TAB>" :

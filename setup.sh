@@ -101,6 +101,9 @@ else
   echo "neovim nightly already executable"
 fi
 
+#Install Pynvim
+pip3 install pynvim
+
 #Install Ranger
 sudo apt install ranger
 
