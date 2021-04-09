@@ -1,3 +1,4 @@
 {
+  "suggest.timeout": 8000,
   "groovy.trace.server": "verbose"
 }

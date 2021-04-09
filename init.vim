@@ -47,8 +47,20 @@ else
  
   "'' Lightline ''"
   if filereadable(expand("~/.config/nvim/autoload/lightline.vim/plugin/lightline.vim"))
-   let g:lightline = { 'colorscheme': 'tokyonight'}
+   let g:lightline = { 
+		\'colorscheme': 'tokyonight',
+        \ 'active': {
+        \   'left': [ [ 'mode', 'paste' ],
+        \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+        \ },
+        \ 'component_function': {
+        \   'cocstatus': 'coc#status'
+        \ },
+        \ }
   endif
+
+  " Use autocmd to force lightline update.
+  autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
   autocmd FileType json syntax match Comment +\/\/.\+$+
   
@@ -74,6 +86,17 @@ else
   endif
 
   "'' COC ''"
+  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+
+  " Always show the signcolumn, otherwise it would shift the text each time
+  " " diagnostics appear/become resolved.
+   if has("patch-8.1.1564")
+     " Recently vim can merge signcolumn and number column into one
+      set signcolumn=number
+  else
+      set signcolumn=yes
+  endif
+   
   if filereadable(expand("~/.config/nvim/plugged/coc.nvim/plugin/coc.vim"))
     let g:coc_global_extensions=[
       \'coc-groovy',
