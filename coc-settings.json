@@ -1,4 +1,5 @@
 {
   "suggest.timeout": 8000,
-  "groovy.trace.server": "verbose"
+  "groovy.trace.server": "verbose",
+  "groovy.project.referencedLibraries": ["/mnt/c/test/", "/mnt/c/test/FieldOrder$1.class"]
 }

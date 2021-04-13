@@ -29,6 +29,7 @@ if [ -z "SSH_AUTH_SOCK" ] ; then
 	eval `ssh-add`
 fi
 
+export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
 export PATH="$HOME/.local/bin:$PATH"
 
 export LS_COLORS=$LS_COLORS:'ow=4;36:';

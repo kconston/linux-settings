@@ -16,6 +16,7 @@ else
   Plug 'junegunn/fzf'
   Plug 'junegunn/fzf.vim'
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug' ]}
   call plug#end()
   
@@ -97,7 +98,7 @@ else
       set signcolumn=yes
   endif
    
-  if filereadable(expand("~/.config/nvim/plugged/coc.nvim/plugin/coc.vim"))
+  if filereadable(expand("~/.config/nvim/autoload/coc.nvim/plugin/coc.vim"))
     let g:coc_global_extensions=[
       \'coc-groovy',
       \'coc-angular',
@@ -107,6 +108,7 @@ else
       \'coc-json',
       \'coc-sh',
       \'coc-tsserver',
+      \'coc-python',
       \]   
  endif
 
