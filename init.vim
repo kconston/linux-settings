@@ -75,6 +75,7 @@ else
   if filereadable(expand("~/.config/nvim/autoload/vim-floaterm/plugin/floaterm.vim"))
     nnoremap <leader>fr :FloatermNew ranger<CR>
     nnoremap <leader>ft :FloatermNew --wintype=floating --autoclose=2<CR>
+    nnoremap <leader>fg :FloatermNew --wintype=floating --autoclose=2 --height=0.9 lazygit<CR>
   endif
   
   "'' FZF ''"
@@ -83,7 +84,7 @@ else
    let $FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 
    nnoremap <leader>ff :Files<CR>
-   nnoremap <leader>fg :Rg<CR>
+   "nnoremap <leader>fg :Rg<CR>
   endif
 
   "'' COC ''"

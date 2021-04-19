@@ -30,7 +30,7 @@ if [ -z "SSH_AUTH_SOCK" ] ; then
 fi
 
 export JAVA_HOME="/usr/lib/jvm/java-8-openjdk-amd64/"
-export PATH="$HOME/.local/bin:$PATH"
+export PATH="$HOME/.local/bin:$PATH:/usr/local/go/bin/:$HOME/go/bin/"
 
 export LS_COLORS=$LS_COLORS:'ow=4;36:';
 

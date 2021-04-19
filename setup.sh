@@ -134,11 +134,19 @@ else
   echo "Vim-Plug already installed"
 fi
 
+#Install Go
+mkdir -p ~/Downloads
+cd ~/Downloads
+wget https://golang.org/dl/go1.16.3.linux-amd64.tar.gz
+sudo tar -xvf go1.16.3.linux-amd64.tar.gz /usr/local/
+
+#Install LazyGit
+cd $HOME
+go get https://github.com/jesseduffield/lazygit.git
+
 #Install NodeJS
 curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 sudo apt-get install -y nodejs
-
-
 
 #Install tmux
 sudo apt install tmux
