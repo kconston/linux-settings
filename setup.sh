@@ -135,14 +135,18 @@ else
 fi
 
 #Install Go
-mkdir -p ~/Downloads
-cd ~/Downloads
-wget https://golang.org/dl/go1.16.3.linux-amd64.tar.gz
-sudo tar -xvf go1.16.3.linux-amd64.tar.gz /usr/local/
+if [ ! -d "/usr/local/go" ]; then
+  mkdir -p ~/Downloads/
+  cd ~/Downloads/
+  wget https://golang.org/dl/go1.16.3.linux-amd64.tar.gz
+  sudo tar -xvf go1.16.3.linux-amd64.tar.gz -C /usr/local/
+else
+  echo "Go already installed"
+fi
 
 #Install LazyGit
 cd $HOME
-go get https://github.com/jesseduffield/lazygit.git
+go get github.com/jesseduffield/lazygit
 
 #Install NodeJS
 curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
