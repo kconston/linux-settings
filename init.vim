@@ -5,18 +5,22 @@ else
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'flazz/vim-colorschemes'
   Plug 'ghifarit53/tokyonight-vim'  
+
+  Plug 'neoclide/coc.nvim', {'branch': 'release'}
+  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+  
+  "Telescope
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
-  Plug 'nvim-lua/telescope.nvim'
+  Plug 'nvim-telescope/telescope.nvim'
+
   Plug 'neovim/nvim-lspconfig'
   Plug 'voldikss/vim-floaterm'
   Plug 'takac/vim-hardtime'
   Plug 'ntk148v/vim-horizon'
   Plug 'itchyny/lightline.vim'
-  Plug 'junegunn/fzf'
+  Plug 'junegunn/fzf',  { 'do': { -> fzf#install() }}
   Plug 'junegunn/fzf.vim'
-  Plug 'neoclide/coc.nvim', {'branch': 'release'}
-  Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug' ]}
   call plug#end()
   
@@ -77,16 +81,29 @@ else
     nnoremap <leader>ft :FloatermNew --wintype=floating --autoclose=2<CR>
     nnoremap <leader>fg :FloatermNew --wintype=floating --autoclose=2 --height=0.9 lazygit<CR>
   endif
+
+  "'' Telescope ''"
+  if filereadable(expand("~/.config/nvim/autoload/telescope.nvim/plugin/telescope.vim"))
+  lua << EOF
+    require('telescope').setup{
+      defaults = {
+        file_ignore_patterns = {
+          "%.git/.*",
+          "node_modules/.*",
+          "secret.d/.*",
+          "%.pem"
+        }
+      }
+    }
+EOF
+
+   nnoremap <leader>fe <CMD>lua require('telescope.builtin').file_browser{cwd = vim.fn.expand("%:p:h")}<CR>
+   nnoremap <leader>ff <CMD>lua require('telescope.builtin').find_files{ hidden = true }<CR>
+   nnoremap <leader>fs <CMD>lua require('telescope.builtin').live_grep()<CR>
+   nnoremap <leader>fb <CMD>lua require('telescope.builtin').buffers()<CR>
+   nnoremap <leader>fh <CMD>lua require('telescope.builtin').help_tags()<CR>
+endif
   
-  "'' FZF ''"
-  if filereadable(expand("~/.config/nvim/autoload/fzf.vim/plugin/fzf.vim"))
-   let $FZF_DEFAULT_COMMAND='rg --files --follow --no-ignore-vcs --hidden -g "!{**/node_modules/**,.git/*,**/*.pem}"'
-   let $FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-
-   nnoremap <leader>ff :Files<CR>
-   "nnoremap <leader>fg :Rg<CR>
-  endif
-
   "'' COC ''"
   set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
@@ -112,7 +129,6 @@ else
       \'coc-python',
       \]   
  endif
-
 
   inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
@@ -148,6 +164,7 @@ else
   nnoremap <leader>nhl :nohl<CR>
   nnoremap <leader>qns :qa!<CR>
   nnoremap <leader>lll <C-w>v<CR>
+  nmap <leader>n :set number! norelativenumber<CR>
   "quick reload
   nnoremap <leader>rl :source %<CR>
   
