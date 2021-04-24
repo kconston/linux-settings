@@ -23,6 +23,7 @@ alias ll='ls -alh'
 alias vim='nvim'
 alias vi='nvim'
 alias nv='nv.sh'
+alias browse='explorer.exe .'
 
 if [ -z "SSH_AUTH_SOCK" ] ; then
 	eval `ssh-agent -s`
@@ -36,3 +37,6 @@ export LS_COLORS=$LS_COLORS:'ow=4;36:';
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+# To customize prompt, run `p10k configure` or edit ~/linux-settings/.p10k.zsh.
+[[ ! -f ~/linux-settings/.p10k.zsh ]] || source ~/linux-settings/.p10k.zsh

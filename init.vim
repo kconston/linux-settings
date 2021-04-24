@@ -4,7 +4,7 @@ else
   call plug#begin('~/.config/nvim/autoload')
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'flazz/vim-colorschemes'
-  Plug 'ghifarit53/tokyonight-vim'  
+  Plug 'folke/tokyonight.nvim'
 
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -18,7 +18,11 @@ else
   Plug 'voldikss/vim-floaterm'
   Plug 'takac/vim-hardtime'
   Plug 'ntk148v/vim-horizon'
-  Plug 'itchyny/lightline.vim'
+  
+  Plug 'hoob3rt/lualine.nvim'
+  Plug 'kyazdani42/nvim-web-devicons'
+  Plug 'ryanoasis/vim-devicons'
+
   Plug 'junegunn/fzf',  { 'do': { -> fzf#install() }}
   Plug 'junegunn/fzf.vim'
   Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug' ]}
@@ -45,24 +49,20 @@ else
   set encoding=utf-8
   set updatetime=300
 
+  "'' Tokyonight ''"
+  if filereadable(expand("~/.config/nvim/autoload/tokyonight.nvim/lua/tokyonight/init.lua"))
+    let g:tokyonight_style = "night"
+    let g:tokyonight_enable_italic = 1
+    "let g:tokyonight_sidebars = [ "qf", "vista_kind", "terminal", "packer" ]
+  endif 
 
-  let g:tokyonight_style = 'night'
-  let g:tokyonight_enable_italic = 0
   silent! colorscheme tokyonight
  
-  "'' Lightline ''"
-  if filereadable(expand("~/.config/nvim/autoload/lightline.vim/plugin/lightline.vim"))
-   let g:lightline = { 
-		\'colorscheme': 'tokyonight',
-        \ 'active': {
-        \   'left': [ [ 'mode', 'paste' ],
-        \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
-        \ },
-        \ 'component_function': {
-        \   'cocstatus': 'coc#status'
-        \ },
-        \ }
+  "'' Lualine
+  if filereadable(expand("~/.config/nvim/autoload/lualine.nvim/lua/lualine/init.lua"))
+    lua require('lualine').setup{ options = { extensions = { 'fzf' }, theme = 'tokyonight'  } }
   endif
+  
 
   " Use autocmd to force lightline update.
   autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
@@ -105,7 +105,7 @@ EOF
 endif
   
   "'' COC ''"
-  set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
+  "set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
   " Always show the signcolumn, otherwise it would shift the text each time
   " " diagnostics appear/become resolved.
