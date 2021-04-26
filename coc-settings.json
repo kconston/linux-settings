@@ -1,5 +1,6 @@
 {
   "suggest.timeout": 8000,
   "groovy.trace.server": "verbose",
-  "groovy.project.referencedLibraries": ["/mnt/c/test/", "/mnt/c/test/FieldOrder$1.class"]
+  "groovy.project.referencedLibraries": ["/mnt/c/test/", "/mnt/c/test/FieldOrder$1.class"],
+  "Lua.diagnostics.globals": ["vim"]
 }

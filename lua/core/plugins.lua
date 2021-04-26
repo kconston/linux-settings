@@ -1,9 +1,9 @@
 local function packer_verify()
   local cmd = vim.api.nvim_command
   local fn = vim.fn
-  
+
   local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  
+
   if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
     cmd 'packadd packer.nvim'
@@ -15,16 +15,17 @@ local load_telescope = function()
 	  defaults = {
 		  file_ignore_patterns = {
 			  "node_modules/.*",
-			  "secret.d/.*",
-			  "%.pem"
 	         }
 	  }
   }
-  
+
   local map = vim.api.nvim_set_keymap
   local options = { noremap = true }
   map('n', '<leader>fe', '<CMD>lua require("telescope.builtin").file_browser{ cwd = vim.fn.expand("%:p:h") }<CR>', options)
   map('n', '<leader>ff', '<CMD>lua require("telescope.builtin").find_files{ hidden = true }<CR>', options)
+  map('n', '<leader>fs', '<CMD>lua require("telescope.builtin").live_grep()<CR>', options)
+  map('n', '<leader>fb', '<CMD>lua require("telescope.builtin").buffers()<CR>', options)
+  map('n', '<leader>fh', '<CMD>lua require("telescope.builtin").help_tags()<CR>', options)
 end
 
 local load_lualine = function()
@@ -33,7 +34,7 @@ local load_lualine = function()
       theme = 'tokyonight'
     },
     sections = {
-      lualine_b = { 
+      lualine_b = {
         {
 	  'diff',
 	  symbols = { added = ' ', removed = ' ', modified = ' '},
@@ -47,12 +48,16 @@ local load_lualine = function()
   }
 end
 
+local load_bufferline = function()
+  require('bufferline').setup{}
+end
+
 function PackerInit()
   packer_verify()
 
   require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
-  
+
     --Theme
     use 'folke/tokyonight.nvim'
 
@@ -63,9 +68,10 @@ function PackerInit()
 
     use {
       'nvim-treesitter/nvim-treesitter',
+      requires = { "neoclide/coc.nvim" },
       run = ":TSUpdate"
     }
-    
+
     --Telescope
     use 'nvim-lua/popup.nvim'
     use 'nvim-lua/plenary.nvim'
@@ -74,6 +80,8 @@ function PackerInit()
       requires = { 'nvim-lua/popup.nvim', 'nvim-lua/plenary.nvim' }
     }
 
+    use 'voldikss/vim-floaterm'
+
     --Lualine
     use {
       'hoob3rt/lualine.nvim',
@@ -81,15 +89,17 @@ function PackerInit()
     }
 
     use {
-	'akinsho/nvim-bufferline.lua', 
+	'akinsho/nvim-bufferline.lua',
         requires = { 'kyazdani42/nvim-web-devicons', 'ryanoasis/vim-devicons' }
     }
-    
+
+    use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end}
     use 'junegunn/fzf.vim'
 
   end)
 
   load_telescope()
   load_lualine()
+  load_bufferline()
 end
 
