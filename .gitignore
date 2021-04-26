@@ -15,7 +15,7 @@
 !init.lua
 !theme.lua
 !plugins.lua
-#!lua/*/
+!lua/*/*.*
 !*/
 !init.lua
 !vim.lua
