@@ -12,3 +12,9 @@
 !init.vim
 !README.md
 !coc-settings.json
+!init.lua
+!theme.lua
+!plugins.lua
+!lua/
+!init.lua
+!vim.lua

@@ -1,6 +1,4 @@
-if exists('g:vscode')
-  echo 'VSCODE YA!'
-else
+if False
   call plug#begin('~/.config/nvim/autoload')
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'flazz/vim-colorschemes'
@@ -9,7 +7,7 @@ else
   Plug 'neoclide/coc.nvim', {'branch': 'release'}
   Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
   
-  "Telescope
+  "lescope
   Plug 'nvim-lua/popup.nvim'
   Plug 'nvim-lua/plenary.nvim'
   Plug 'nvim-telescope/telescope.nvim'
@@ -19,9 +17,12 @@ else
   Plug 'takac/vim-hardtime'
   Plug 'ntk148v/vim-horizon'
   
+  "Lualine
   Plug 'hoob3rt/lualine.nvim'
   Plug 'kyazdani42/nvim-web-devicons'
   Plug 'ryanoasis/vim-devicons'
+
+  Plug 'akinsho/nvim-bufferline.lua'
 
   Plug 'junegunn/fzf',  { 'do': { -> fzf#install() }}
   Plug 'junegunn/fzf.vim'
@@ -43,11 +44,12 @@ else
   set nowrap
   set smartcase
   set expandtab
-  set number relativenumber
+  set relativenumber
   set noshowmode
   set termguicolors
   set encoding=utf-8
   set updatetime=300
+  syntax enable
 
   "'' Tokyonight ''"
   if filereadable(expand("~/.config/nvim/autoload/tokyonight.nvim/lua/tokyonight/init.lua"))
@@ -57,10 +59,47 @@ else
   endif 
 
   silent! colorscheme tokyonight
+  
+  lua require'bufferline'.setup{}
  
   "'' Lualine
+  let g:lualine = {
+        \'options' : {
+        \  'theme' : 'tokyonight',
+        \  'section_separators' : ['', ''],
+        \  'component_separators' : ['', ''],
+        \  'icons_enabled' : v:true,
+        \},
+        \'sections' : {
+        \  'lualine_a' : [ ['mode', {'upper': v:true,},], ],
+        \  'lualine_b' : [ 
+        \      ['branch', {'icon': '', }, ],
+        \      ['diff', {
+        \        'symbols': { 'added':' ', 'removed':' ', 'modified': ' '},
+        \        'color_added':  '#66a358', 
+        \        'color_info': '#FFFFFF',
+        \        'color_modified': '#1e1fc0',
+        \        'color_removed': '#dd2f23',
+        \       }, ],],
+        \  'lualine_c' : [ ['filename', {'file_status': v:true,},], ],
+        \  'lualine_x' : [ 'encoding', 'fileformat', 'filetype' ],
+        \  'lualine_y' : [ 'progress' ],
+        \  'lualine_z' : [ 'location'  ],
+        \},
+        \'inactive_sections' : {
+        \  'lualine_a' : [  ],
+        \  'lualine_b' : [  ],
+        \  'lualine_c' : [ 'filename' ],
+        \  'lualine_x' : [ 'location' ],
+        \  'lualine_y' : [  ],
+        \  'lualine_z' : [  ],
+        \},
+        \'extensions' : [ 'fzf' ],
+        \} 
   if filereadable(expand("~/.config/nvim/autoload/lualine.nvim/lua/lualine/init.lua"))
-    lua require('lualine').setup{ options = { extensions = { 'fzf' }, theme = 'tokyonight'  } }
+    "theme = 'tokyonight'  } 
+    "lua require('lualine').setup{ options = { extensions = { 'fzf' }, theme = 'tokyonight' } }
+    lua require("lualine").setup()
   endif
   
 
@@ -127,8 +166,12 @@ endif
       \'coc-sh',
       \'coc-tsserver',
       \'coc-python',
+      \'coc-lua',
       \]   
  endif
+
+ " GoTo code navigation.
+  nmap <leader>bd <Plug>(coc-definition)
 
   inoremap <silent><expr> <TAB>
           \ pumvisible() ? "\<C-n>" :
@@ -167,6 +210,19 @@ endif
   nmap <leader>n :set number! norelativenumber<CR>
   "quick reload
   nnoremap <leader>rl :source %<CR>
+  nnoremap <leader>vs :vsplit<CR>
+
+  "bufferline
+  nnoremap <silent>[b :BufferLineCycleNext<CR>
+  nnoremap <silent>b] :BufferLineCyclePrev<CR>
+
+ "' Treesitter ''"
+if filereadable(expand("~/.config/nvim/plugged/nvim-treesitter/plugin/nvim-treesitter.vim"))
+  lua require'nvim-treesitter.configs'.setup{ ensure_installed='all', highlight={ enable=true } }
+endif
+
+endif
   
   map Q <Nop>
-endif
+
+
