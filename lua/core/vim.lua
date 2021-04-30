@@ -18,8 +18,12 @@ local set_vim_o = function()
     vim.o[k] = v
   end
 
+  --vim.cmd('set term=xterm-256color')
   vim.cmd('set encoding=utf8')
-
+  vim.cmd('set shiftwidth=2')
+  vim.cmd('set splitright')
+  vim.cmd('set tabstop=2')
+  vim.cmd('set updatetime=300')
 end
 
 local set_vim_wo = function()
@@ -28,8 +32,12 @@ local set_vim_wo = function()
   vim.wo.wrap = false
 end
 
-function VimInit()
+local function init()
   set_vim_g()
   set_vim_o()
   set_vim_wo()
 end
+
+return {
+  init = init
+}

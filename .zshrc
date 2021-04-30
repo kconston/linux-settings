@@ -40,3 +40,5 @@ export LS_COLORS=$LS_COLORS:'ow=4;36:';
 
 # To customize prompt, run `p10k configure` or edit ~/linux-settings/.p10k.zsh.
 [[ ! -f ~/linux-settings/.p10k.zsh ]] || source ~/linux-settings/.p10k.zsh
+
+alias luamake=/home/kconston/.local/share/lua-language-server/3rd/luamake/luamake

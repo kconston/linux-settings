@@ -38,9 +38,13 @@ local function other_map()
   local map = vim.api.nvim_set_keymap
 end
 
-function Map()
+local function init()
   normal_remap()
   normal_noremap()
   insert_noremap()
   other_map()
 end
+
+return {
+ init = init
+}

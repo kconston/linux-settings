@@ -1,11 +1,7 @@
-require 'core'
+local myCore = require 'core'
 
 local function main()
-  VimInit()
-  PackerInit()
-  ThemeInit()
-  Map()
+  myCore.init()
 end
 
 main()
-

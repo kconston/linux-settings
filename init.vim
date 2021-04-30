@@ -1,5 +1,4 @@
-if False
-  call plug#begin('~/.config/nvim/autoload')
+call plug#begin('~/.config/nvim/autoload')
   Plug 'ctrlpvim/ctrlp.vim'
   Plug 'flazz/vim-colorschemes'
   Plug 'folke/tokyonight.nvim'
@@ -221,7 +220,6 @@ if filereadable(expand("~/.config/nvim/plugged/nvim-treesitter/plugin/nvim-trees
   lua require'nvim-treesitter.configs'.setup{ ensure_installed='all', highlight={ enable=true } }
 endif
 
-endif
   
   map Q <Nop>
 
