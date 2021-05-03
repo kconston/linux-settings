@@ -17,7 +17,7 @@ local load_telescope = function()
 end
 
 local function init()
-  load_telescope()
+    load_telescope()
 end
 
 return {

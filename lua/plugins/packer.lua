@@ -21,7 +21,7 @@ function PackerInit()
       'hrsh7th/nvim-compe',
       requires = { 'neovim/nvim-lspconfig' }
     }
-		use {
+    use {
       'tzachar/compe-tabnine',
       requires = 'hrsh7th/nvim-compe',
       run='~/.local/share/nvim/site/pack/packer/start/compe-tabnine/install.sh'
