@@ -27,7 +27,7 @@ function PackerInit()
       run='~/.local/share/nvim/site/pack/packer/start/compe-tabnine/install.sh'
     }
 
-    use'norcalli/snippets.nvim' 
+    use'norcalli/snippets.nvim'
     use {
       'nvim-treesitter/nvim-treesitter',
       requires = { "neovim/nvim-lspconfig" },
@@ -68,6 +68,13 @@ function PackerInit()
     use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end}
     use 'junegunn/fzf.vim'
 
+		--Debugger
+    use {
+      'mfussenegger/nvim-dap-python',
+      requires = { 'mfussenegger/nvim-dap' }
+    }
+		use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
+		use { "nvim-telescope/telescope-dap.nvim" }
   end)
 end
 

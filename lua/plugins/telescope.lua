@@ -4,7 +4,12 @@ local load_telescope = function()
 		  file_ignore_patterns = {
 			  "node_modules/.*",
 	         }
-	  }
+	  },
+		extensions = {
+			dap = {
+
+			}
+		}
   }
 
   local map = vim.api.nvim_set_keymap

@@ -13,6 +13,9 @@ local function init()
   require "plugins.nvim_bufferline".init()
   require "plugins.telescope".init()
   require "plugins.floaterm".init()
+
+	--debugger
+	require "plugins.nvim_dap".init()
 end
 
 return {

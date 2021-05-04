@@ -2,7 +2,6 @@ local function normal_remap()
   local map = vim.api.nvim_set_keymap
   local options = { noremap = false }
 
-  map('n', '<leader>rn', '<Plug>(coc-rename)', options)
 end
 
 local function normal_noremap()
@@ -23,9 +22,6 @@ local function normal_noremap()
   map('n', '<leader>vs', ':vsplit<CR> :wincmd l<CR>', options)
   map('n', '<leader>hs', ':split<CR> :wincmd j<CR>', options)
 
-  --Buffer Line
-  map('n', '<silent>[b', ':BufferLineCycleNext<CR>', options)
-  map('n', '<silent>b]', ':BufferLineCyclePrev<CR>', options)
 end
 
 local function insert_noremap()
