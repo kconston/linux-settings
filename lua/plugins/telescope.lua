@@ -5,12 +5,12 @@ local load_telescope = function()
 			  "node_modules/.*",
 	         }
 	  },
-		extensions = {
-			dap = {
-
-			}
-		}
   }
+
+--extensions = {
+--			dap = {
+--			}
+--		}
 
   local map = vim.api.nvim_set_keymap
   local options = { noremap = true }

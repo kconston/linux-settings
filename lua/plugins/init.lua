@@ -16,6 +16,8 @@ local function init()
 
 	--debugger
 	require "plugins.nvim_dap".init()
+	require "plugins.dap_ui".init()
+	require "plugins.dap_vt".init()
 end
 
 return {

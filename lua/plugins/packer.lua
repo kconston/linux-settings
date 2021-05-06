@@ -74,6 +74,7 @@ function PackerInit()
       requires = { 'mfussenegger/nvim-dap' }
     }
 		use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
+		use { "theHamsta/nvim-dap-virtual-text", requires = {"mfussenegger/nvim-dap"}}
 		use { "nvim-telescope/telescope-dap.nvim" }
   end)
 end

@@ -105,7 +105,7 @@ end
 -- lsp-install
 local function setup_servers()
   -- TODO: Find a better approach to autoinstalling LSPs
-  local servers = { "gopls", "sumneko_lua", "pyright" }
+  local servers = { "sumneko_lua", "pyright" }
 
   -- setup installed servers
   for _, server in pairs(servers) do
@@ -123,7 +123,7 @@ local function setup_servers()
     end
 
 		if server == "pyright" then
-      --nothing yet.  Using defaults
+			c.root_dir = require'lspconfig'.util.root_pattern('/venv');
 		end
 
 		if server == "groovyls" then

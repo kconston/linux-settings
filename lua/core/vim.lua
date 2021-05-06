@@ -33,11 +33,12 @@ local set_vim_wo = function()
 end
 
 local function init()
+  vim.g.python3_host_prog = "$HOME/.virtualenvs/nvim3.8/bin/python3.8"
   set_vim_g()
   set_vim_o()
   set_vim_wo()
 end
 
 return {
-  init = init
+    init = init
 }
