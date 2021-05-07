@@ -9,53 +9,47 @@ local function keymap()
 	--map('n', '<silent> <leader>B', ':lua require(dap).set_breakpoint(vim.fn.input("Breakpoint condition: "))<CR>')
 end
 
-local function init_manual()
-	local dap = require('dap')
-
-  dap.adapters.python = {
-  	type = 'executable';
-  	command = '/home/kenneec/.virtualenvs/debugpy/bin/python3.8';
-		args = { '-m', 'debugpy.adapter' };
-	}
-
-	dap.configurations.python = {
-  {
-    -- The first three options are required by nvim-dap
-    type = 'python'; -- the type here established the link to the adapter definition: `dap.adapters.python`
-    request = 'launch';
-    name = "Launch file";
-
-    -- Options below are for debugpy, see https://github.com/microsoft/debugpy/wiki/Debug-configuration-settings for supported options
-
-		console = "integratedTerminal";
-    program = "${file}"; -- This configuration will launch the current file if used.
-    pythonPath = function()
-      -- debugpy supports launching an application with a different interpreter then the one used to launch debugpy itself.
-      -- The code below looks for a `venv` or `.venv` folder in the current directly and uses the python within.
-      -- You could adapt this - to for example use the `VIRTUAL_ENV` environment variable.
-      local cwd = vim.fn.getcwd()
-      if vim.fn.executable(cwd .. '/venv/bin/python3.8') then
-        return cwd .. '/venv/bin/python3.8'
-      elseif vim.fn.executable(cwd .. '/.venv/bin/python') then
-        return cwd .. '/.venv/bin/python'
-      else
-        return '/usr/bin/python'
-      end
-    end;
-  },
-}
-end
-
 local function init()
-	require'dap-python'.setup('/home/kenneec/.virtualenvs/debugpy/bin/python3.8', { console = 'integratedTerminal' })
+	require'dap-python'.setup('/home/kenneec/.virtualenvs/debugpy/bin/python3.8', { console = 'integratedTerminal', windowSplit = '80vsplit new' })
 	require'telescope'.load_extension('dap')
 
 	vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
 
 	keymap()
-  --require'dapui'.setup()
+end
+
+local function init2()
+	require'dap'.adapters.python = {
+	  type = 'executable';
+	  command = '/home/kenneec/.virtualenvs/debugpy/bin/python3.8';
+	  args = { '-m', 'debugpy.adapter' };
+	}
+	require'dap'.configurations.python = {
+	  {
+	    type = 'python';
+			request = 'launch';
+	    name = "Launch file";
+			console = "integratedTerminal";
+			windowSplit = '80vsplit new';
+
+			program = "${file}"; 
+			pythonPath = function()
+	      local cwd = vim.fn.getcwd()
+	      if vim.fn.executable(cwd .. '/venv/bin/python3.8') then
+	        return cwd .. '/venv/bin/python3.8'
+	      elseif vim.fn.executable(cwd .. '/.venv/bin/python') then
+	        return cwd .. '/.venv/bin/python'
+	      else
+	        return '/usr/bin/python'
+	      end
+	    end;
+	  },
+	}
+  
+	vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
+	keymap()
 end
 
 return {
-	init = init
+	init = init2
 }
