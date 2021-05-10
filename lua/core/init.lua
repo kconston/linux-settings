@@ -1,8 +1,8 @@
 local function init()
   require "core.vim".init()
-  require "core.theme".init()
-  require "keymap".init()
   require "plugins".init()
+  require "keymap".init()
+  require "core.theme".init()
 end
 
 return {

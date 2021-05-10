@@ -157,9 +157,22 @@ else
 fi
 
 # {{ Install DirEnv }}
-curl -sfL https://direnv.net/install.sh | zsh 
+if ! command -v direnv &> /dev/null
+then
+	curl -sfL https://direnv.net/install.sh | bash 
+else 
+	echo 'DirEnv already installed'
+fi
 
 # {{ Install Poetry }}
-curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+if ! command -v poetry &> /dev/null 
+then
+	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
+else 
+	echo 'Poetry already installed'
+fi
+
+# {{ Packer }}
+nvim +PackerCompile +PackerSync
 
 echo 'Done!'

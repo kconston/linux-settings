@@ -1,5 +1,5 @@
 local load_lualine = function()
-  require("lualine").setup{
+  require("lualine").setup {
     options = {
       extensions = { 'fzf' },
       theme = 'tokyonight'

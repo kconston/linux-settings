@@ -1,4 +1,4 @@
-local function packer_verify()
+ local function PackerVerify()
   local cmd = vim.api.nvim_command
   local fn = vim.fn
 
@@ -6,13 +6,11 @@ local function packer_verify()
 
   if fn.empty(fn.glob(install_path)) > 0 then
     fn.system({'git', 'clone', 'https://github.com/wbthomason/packer.nvim', install_path})
-    cmd 'packadd packer.nvim'
+    cmd'packadd packer.nvim'
   end
 end
 
 function PackerInit()
-  packer_verify()
-
   require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
@@ -80,6 +78,7 @@ function PackerInit()
 end
 
 local function init()
+  PackerVerify()
   PackerInit()
 end
 
