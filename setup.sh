@@ -11,10 +11,10 @@ done
 echo "Email value: $email"
 echo "Full name value: $fullname"
 
-#update
+# {{ Update }}
 sudo apt update
 
-#Generate SSH
+# {{ Generate SSH }}
 if [ -f "$HOME/.ssh/id_ed25519" ]; then
   echo "SSH file already exists"
 else
@@ -22,14 +22,14 @@ else
   ssh-keygen -t ed25519 -C "$email"
 fi
 
-#Install git
+# {{ Install git }}
 if [ -x "$(command -v git)" ]; then  
   echo "GIT already installed"
 else
   sudo apt install git
 fi
 
-#Update git
+# {{ Update git }}
 if [ ! -z ${email+x} ]; then
    echo "Setting user.email to $email"
    git config --global user.email "$email"
@@ -39,14 +39,14 @@ if [ ! -z ${fullname+x} ]; then
    git config --global user.name "$fullname" 
 fi
 
-#Install zsh
+# {{ Install zsh }}
 if [ -x "$(command -v zsh)" ]; then
   echo "ZSH already installed"
 else
   sudo apt install zsh
 fi
 
-#Install oh-my-zsh
+# {{ Install oh-my-zsh }}
 OHMYZSHDIR="$HOME/.oh-my-zsh/"
 if [ ! -d "$OHMYZSHDIR" ]; then
   sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
@@ -59,24 +59,25 @@ else
   echo "Oh-my-zsh already installed"
 fi
 
-#Install powerlevel10k
+# {{ Install powerlevel10k }}
 if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 else
   echo "Powerlevel 10k already installed"
 fi
-  
 if [ -f "$HOME/.p10k.zsh" ]; then
   mv ~/.p10k.zsh ~/.p10k.zsh.bak
 fi
 ln -s ~/linux-settings/.p10k.zsh ~/.p10k.zsh
 
-#Install cmake
-sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip
-
+# {{ Install cmake }}
+sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip 
 sudo apt build-essential
 
-#Install neovim nightly
+#Install taskwarrior
+sudo apt install taskwarrior
+
+# {{ Install neovim nightly }}
 if [ ! -d "$HOME/neovim" ]; then
   git clone https://github.com/neovim/neovim.git $HOME/neovim
   cd $HOME/neovim
@@ -85,56 +86,48 @@ if [ ! -d "$HOME/neovim" ]; then
 else
   echo "Neovim nightly already installed"
 fi
-
-
 if [ ! -d "$HOME/.local/bin/" ]; then
   mkdir -p $HOME/.local/bin/
 else
   echo ".local/bin/ already exists"
 fi
-
+if [ ! -d "$HOME/.config/nvim" ]; then
+  mkdir -p $HOME/.config/nvim
+else
+  echo ".config/nvim already exists"
+fi
 if [ ! -f "$HOME/.local/bin/nv.sh" ]; then
   ln -s $HOME/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
-  #cp $HOME/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
   chmod u+x $HOME/.local/bin/nv.sh
 else
   echo "neovim nightly already executable"
 fi
 
-#Install Pynvim
+# {{ Install Pynvim }}
 pip3 install pynvim
 
-#Install Ranger
+# {{ Install Ranger }}
 sudo apt install ranger
 
-#Install RipGrep
+# {{ Install RipGrep }}
 sudo apt install ripgrep
 
-#Install Java
+# {{ Install Java }}
 sudo apt install openjdk-8-jdk
 
-#Install PyLint
+# {{ Install PyLint }}
 pip3 install pylint
 
-#Install Rope
+# {{ Install Rope }}
 pip3 install rope
 
-#Install Jedi
+# {{ Install Jedi }}
 pip3 install jedi
 
-#Install Vim-Plug
-if [ ! -d "$HOME/.config/nvim/" ]; then
-  sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
-  mkdir -p ~/.config/nvim
-  ln -s ~/linux-settings/init.vim ~/.config/nvim/init.vim
-  ln -s ~/linux-settingns/coc-settings.json ~/.config/nvim/coc-settings.json
-  nv +PlugInstall +qall
-else
-  echo "Vim-Plug already installed"
-fi
+# {{ Create sym links }}
+ln -s ~/linux-settings/init.lua ~/.config/nvim/init.lua
 
-#Install Go
+# {{ Install Go }}
 if [ ! -d "/usr/local/go" ]; then
   mkdir -p ~/Downloads/
   cd ~/Downloads/
@@ -144,15 +137,15 @@ else
   echo "Go already installed"
 fi
 
-#Install LazyGit
+# {{ Install LazyGit }}
 cd $HOME
 go get github.com/jesseduffield/lazygit
 
-#Install NodeJS
+# {{ Install NodeJS }}
 curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
-#Install tmux
+# {{ Install tmux }}
 sudo apt install tmux
 cd $HOME 
 if [ ! -d "$HOME/.tmux/" ]; then
@@ -162,5 +155,11 @@ if [ ! -d "$HOME/.tmux/" ]; then
 else
   echo 'Tmux already installed'
 fi
+
+# {{ Install DirEnv }}
+curl -sfL https://direnv.net/install.sh | zsh 
+
+# {{ Install Poetry }}
+curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
 
 echo 'Done!'

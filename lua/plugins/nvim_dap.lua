@@ -10,9 +10,9 @@ local function keymap()
 end
 
 local function init()
-	require'dap-python'.setup('/home/kenneec/.virtualenvs/debugpy/bin/python3.8', { console = 'integratedTerminal', windowSplit = '80vsplit new' })
+	require'dap-python'.setup('/home/kenneec/.virtualenvs/debugpy/bin/python3.8', { console = 'integratedTerminal' })
 	require'telescope'.load_extension('dap')
-
+	require'dap'.defaults.python.terminal_win_cmd = '100vsplit new';
 	vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
 
 	keymap()
@@ -30,7 +30,7 @@ local function init2()
 			request = 'launch';
 	    name = "Launch file";
 			console = "integratedTerminal";
-			windowSplit = '80vsplit new';
+			--windowSplit = '80vsplit new';
 
 			program = "${file}"; 
 			pythonPath = function()
@@ -45,11 +45,13 @@ local function init2()
 	    end;
 	  },
 	}
-  
+
+	require'dap'.defaults.python.terminal_win_cmd = '80vsplit new';
+
 	vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
 	keymap()
 end
 
 return {
-	init = init2
+	init = init
 }
