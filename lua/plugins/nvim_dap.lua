@@ -1,7 +1,7 @@
 local function keymap()
 	local map = vim.api.nvim_set_keymap
   local options = { noremap = true }
-  map('n', '<leader>b', '<CMD>lua require"dap".toggle_breakpoint()<CR>', options)
+  map('n', '<leader>db', '<CMD>lua require"dap".toggle_breakpoint()<CR>', options)
 	map('n', '<leader>dc', '<CMD>lua require"dap".continue()<CR>', options)
 	map('n', '<leader>do', '<CMD>lua require"dap".step_over()<CR>', options)
   map('n', '<leader>di', '<CMD>lua require"dap".step_into()<CR>', options)
@@ -12,7 +12,7 @@ end
 local function init()
 	require'dap-python'.setup('/home/kenneec/.virtualenvs/debugpy/bin/python3.8', { console = 'integratedTerminal' })
 	require'telescope'.load_extension('dap')
-	require'dap'.defaults.python.terminal_win_cmd = '100vsplit new';
+	require'dap'.defaults.python.terminal_win_cmd = '70vsplit new';
 	vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
 
 	keymap()

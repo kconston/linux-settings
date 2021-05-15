@@ -123,7 +123,8 @@ local function setup_servers()
     end
 
 		if server == "pyright" then
-			c.root_dir = require'lspconfig'.util.root_pattern('/venv');
+			--c.root_dir = require'lspconfig'.util.root_pattern('/venv');
+      c.root_dir = require'lspconfig'.util.root_pattern('pyproject.toml');
 		end
 
 		if server == "groovyls" then

@@ -32,11 +32,16 @@ local set_vim_wo = function()
   vim.wo.wrap = false
 end
 
+local set_autocmd = function()
+  vim.api.nvim_command("autocmd FileType python BracelessEnable +fold +highlight")
+end
+
 local function init()
   vim.g.python3_host_prog = "$HOME/.virtualenvs/nvim3.8/bin/python3.8"
   set_vim_g()
   set_vim_o()
   set_vim_wo()
+	set_autocmd()
 end
 
 return {

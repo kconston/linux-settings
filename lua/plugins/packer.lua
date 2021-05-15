@@ -66,6 +66,22 @@ function PackerInit()
     use { 'junegunn/fzf', run = function() vim.fn['fzf#install']() end}
     use 'junegunn/fzf.vim'
 
+		use 'phaazon/hop.nvim'
+
+		use {
+			"folke/todo-comments.nvim",
+			requires = "nvim-lua/plenary.nvim",
+			config = function()
+				require("todo-comments").setup{}
+			end
+		}
+
+		use {
+			"folke/trouble.nvim",
+			requires = "kyazdani42/nvim-web-devicons",
+			config = function()require("trouble").setup{}	end
+		}
+
 		--Debugger
     use {
       'mfussenegger/nvim-dap-python',
@@ -74,6 +90,7 @@ function PackerInit()
 		use { "rcarriga/nvim-dap-ui", requires = {"mfussenegger/nvim-dap"}}
 		use { "theHamsta/nvim-dap-virtual-text", requires = {"mfussenegger/nvim-dap"}}
 		use { "nvim-telescope/telescope-dap.nvim" }
+		use { "tweekmonster/braceless.vim" }
   end)
 end
 

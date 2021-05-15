@@ -14,6 +14,10 @@ local function init()
   require "plugins.telescope".init()
   require "plugins.floaterm".init()
 
+	require "plugins.hop".init()
+	require "plugins.todo_comments".init()
+	require "plugins.trouble".init()
+
 	--debugger
 	require "plugins.nvim_dap".init()
 	require "plugins.dap_ui".init()
