@@ -60,15 +60,21 @@ else
 fi
 
 # {{ Install powerlevel10k }}
-if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
-  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-else
-  echo "Powerlevel 10k already installed"
-fi
-if [ -f "$HOME/.p10k.zsh" ]; then
-  mv ~/.p10k.zsh ~/.p10k.zsh.bak
-fi
-ln -s ~/linux-settings/.p10k.zsh ~/.p10k.zsh
+#if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+#  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+#else
+#  echo "Powerlevel 10k already installed"
+#fi
+#if [ -f "$HOME/.p10k.zsh" ]; then
+#  mv ~/.p10k.zsh ~/.p10k.zsh.bak
+#fi
+#ln -s ~/linux-settings/.p10k.zsh ~/.p10k.zsh
+
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
+ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
+
 
 # {{ Install cmake }}
 sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip 
@@ -76,6 +82,8 @@ sudo apt build-essential
 
 #Install taskwarrior
 sudo apt install taskwarrior
+
+mkdir $HOME/git
 
 # {{ Install neovim nightly }}
 if [ ! -d "$HOME/neovim" ]; then
