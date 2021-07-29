@@ -1,5 +1,9 @@
 #!/bin/sh
 
+current_dir=pwd
+
+mkdir $HOME/git
+
 while getopts "e:f:" opt;
 do
     case $opt in
@@ -54,37 +58,35 @@ if [ ! -d "$OHMYZSHDIR" ]; then
   if [ -f "$HOME/.zshrc" ]; then
     mv $HOME/.zshrc $HOME/.zshrc.old
   fi
-  ln -s $HOME/linux-settings/.zshrc $HOME/.zshrc
+  ln -s $HOME/git/linux-settings/.zshrc $HOME/.zshrc
 else 
   echo "Oh-my-zsh already installed"
 fi
 
-{{ Install powerlevel10k }}
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+
+# {{ Install powerlevel10k }}
 if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
   git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
 else
   echo "Powerlevel 10k already installed"
 fi
 if [ -f "$HOME/.p10k.zsh" ]; then
-  mv $/.p10k.zsh $HOME/.p10k.zsh.bak
+  mv $HOME/.p10k.zsh $HOME/.p10k.zsh.bak
 fi
 ln -s $HOME/git/linux-settings/.p10k.zsh $HOME/.p10k.zsh
-
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # {{ Install cmake }}
 sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip 
 sudo apt build-essential
 
-#Install taskwarrior
+# {{ Install taskwarrior }}
 sudo apt install taskwarrior
 
-mkdir $HOME/git
-
 # {{ Install neovim nightly }}
-if [ ! -d "$HOME/neovim" ]; then
-  git clone https://github.com/neovim/neovim.git $HOME/neovim
-  cd $HOME/neovim
+if [ ! -d "$HOME/git/neovim" ]; then
+  git clone https://github.com/neovim/neovim.git $HOME/git/neovim
+  cd $HOME/git/neovim
   make CMAKE_BUILD_TYPE=Release
   sudo make install
 else
@@ -101,7 +103,7 @@ else
   echo ".config/nvim already exists"
 fi
 if [ ! -f "$HOME/.local/bin/nv.sh" ]; then
-  ln -s $HOME/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
+  ln -s $HOME/git/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
   chmod u+x $HOME/.local/bin/nv.sh
 else
   echo "neovim nightly already executable"
@@ -117,7 +119,7 @@ sudo apt install ranger
 sudo apt install ripgrep
 
 # {{ Install Java }}
-sudo apt install openjdk-8-jdk
+sudo apt install openjdk-11-jdk
 
 # {{ Install PyLint }}
 pip3 install pylint
@@ -129,7 +131,7 @@ pip3 install rope
 pip3 install jedi
 
 # {{ Create sym links }}
-ln -s $HOME/linux-settings/init.lua $HOME/.config/nvim/init.lua
+ln -s $HOME/git/linux-settings/init.lua $HOME/.config/nvim/init.lua
 
 # {{ Install Go }}
 if [ ! -d "/usr/local/go" ]; then
@@ -150,15 +152,15 @@ curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
 sudo apt-get install -y nodejs
 
 # {{ Install tmux }}
-sudo apt install tmux
-cd $HOME 
-if [ ! -d "$HOME/.tmux/" ]; then
-  git clone https://github.com/gpakosz/.tmux.git
-  ln -sf $HOME/.tmux/.tmux.conf
-  ln -sf $HOME/linux-settings/.tmux.conf.local
-else
-  echo 'Tmux already installed'
-fi
+#sudo apt install tmux
+#cd $HOME 
+#if [ ! -d "$HOME/.tmux/" ]; then
+#  git clone https://github.com/gpakosz/.tmux.git
+#  ln -sf $HOME/.tmux/.tmux.conf
+#  ln -sf $HOME/git/linux-settings/.tmux.conf.local
+#else
+#  echo 'Tmux already installed'
+#fi
 
 # {{ Install DirEnv }}
 if ! command -v direnv &> /dev/null
@@ -176,7 +178,28 @@ else
 	echo 'Poetry already installed'
 fi
 
-# {{ Packer }}
+# {{ Install Packer }}
 nvim +PackerCompile +PackerSync
 
+# {{ Install Docker }}
+sudo apt install \\
+  apt-transport-https \\
+  ca-certificates \\
+  curl \\
+  gnupg \\
+  lsb-release
+curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
+echo "deb [rch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+sudo apt update
+sudo apt install docker-ce docker-ce-cli containerd.io
+sudo usermod -aG docker $USER
+DOCKER_DIR=/mnt/wsl/shared-docker
+mkdir -pm o=,ug=rwx "$DOCKER_DIR"
+chgrp docker "$DOCKER_DIR"
+ln -s $HOME/git/linux-settings/docker/daemon.json /etc/docker/daemon.json
+mkdir $HOME/bin/
+ln -s $HOME/git/linux-settings/docker/docker-service $HOME/bin/docker-service
+
+
+cd $current_dir
 echo 'Done!'

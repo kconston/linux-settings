@@ -1,2 +1,2 @@
 # nv.sh
-VIMRUNTIME=$HOME/neovim/runtime $HOME/neovim/build/bin/nvim "$@"
+VIMRUNTIME=$HOME/neovim/runtime $HOME/git/neovim/build/bin/nvim "$@"
