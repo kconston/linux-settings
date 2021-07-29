@@ -20,7 +20,7 @@ function PackerInit()
       requires = { 'neovim/nvim-lspconfig' }
     }
     use {
-      'tzachar/compe-tabnine',
+      'erkrnt/compe-tabnine',
       requires = 'hrsh7th/nvim-compe',
       run='~/.local/share/nvim/site/pack/packer/start/compe-tabnine/install.sh'
     }
@@ -48,7 +48,7 @@ function PackerInit()
       'ThePrimeagen/git-worktree.nvim',
       requires = { 'nvim-telescope/telescope.nvim' }
     }
-		use 'lewis6991/gitsigns.nvim'
+    use 'lewis6991/gitsigns.nvim'
 
     use 'voldikss/vim-floaterm'
 
