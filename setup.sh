@@ -59,22 +59,18 @@ else
   echo "Oh-my-zsh already installed"
 fi
 
-# {{ Install powerlevel10k }}
-#if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
-#  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
-#else
-#  echo "Powerlevel 10k already installed"
-#fi
-#if [ -f "$HOME/.p10k.zsh" ]; then
-#  mv ~/.p10k.zsh ~/.p10k.zsh.bak
-#fi
-#ln -s ~/linux-settings/.p10k.zsh ~/.p10k.zsh
+{{ Install powerlevel10k }}
+if [ ! -d "${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k" ]; then
+  git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+else
+  echo "Powerlevel 10k already installed"
+fi
+if [ -f "$HOME/.p10k.zsh" ]; then
+  mv $/.p10k.zsh $HOME/.p10k.zsh.bak
+fi
+ln -s $HOME/git/linux-settings/.p10k.zsh $HOME/.p10k.zsh
 
-git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
-
-git clone https://github.com/spaceship-prompt/spaceship-prompt.git "$ZSH_CUSTOM/themes/spaceship-prompt" --depth=1
-ln -s "$ZSH_CUSTOM/themes/spaceship-prompt/spaceship.zsh-theme" "$ZSH_CUSTOM/themes/spaceship.zsh-theme"
-
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 
 # {{ Install cmake }}
 sudo apt install ninja-build gettext libtool libtool-bin autoconf automake cmake g++ pkg-config unzip 
@@ -133,12 +129,12 @@ pip3 install rope
 pip3 install jedi
 
 # {{ Create sym links }}
-ln -s ~/linux-settings/init.lua ~/.config/nvim/init.lua
+ln -s $HOME/linux-settings/init.lua $HOME/.config/nvim/init.lua
 
 # {{ Install Go }}
 if [ ! -d "/usr/local/go" ]; then
-  mkdir -p ~/Downloads/
-  cd ~/Downloads/
+  mkdir -p $HOME/Downloads/
+  cd $HOME/Downloads/
   wget https://golang.org/dl/go1.16.3.linux-amd64.tar.gz
   sudo tar -xvf go1.16.3.linux-amd64.tar.gz -C /usr/local/
 else
