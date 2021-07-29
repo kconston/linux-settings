@@ -110,6 +110,10 @@ fi
 ln -s $HOME/git/linux-settings/init.lua $HOME/.config/nvim/init.lua
 ln -s $HOME/git/linux-settings/lua $HOME/.config/nvim/lua          
 
+# {{ Install Packer }}
+#nvim --headless +PackerCompile +PackerSync
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+
 #if [ ! -f "$HOME/.local/bin/nv.sh" ]; then
 #  ln -s $HOME/git/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
 #  chmod u+x $HOME/.local/bin/nv.sh
@@ -137,6 +141,8 @@ sudo apt install openjdk-11-jdk
 #
 ## {{ Install Jedi }}
 #pip3 install jedi
+
+sudo apt install wget
 
 # {{ Install Go }}
 if [ ! -d "/usr/local/go" ]; then
@@ -183,10 +189,6 @@ go get github.com/jesseduffield/lazygit
 #	echo 'Poetry already installed'
 #fi
 
-# {{ Install Packer }}
-#nvim --headless +PackerCompile +PackerSync
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
-
 # {{ Install Docker }}
 sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release 
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -197,6 +199,7 @@ sudo usermod -aG docker $USER
 DOCKER_DIR=/mnt/wsl/shared-docker
 mkdir -pm o=,ug=rwx "$DOCKER_DIR"
 chgrp docker "$DOCKER_DIR"
+mkdir -p /etc/docker
 ln -s $HOME/git/linux-settings/docker/daemon.json /etc/docker/daemon.json
 mkdir -p $HOME/.local/bin/docker
 ln -s $HOME/git/linux-settings/docker/docker-service $HOME/.local/bin/docker/docker-service
