@@ -1,8 +1,5 @@
 #!/bin/sh
-a=('one' 'two' 'three')
-
 current_dir=$(pwd)
-
 
 mkdir $HOME/git
 
@@ -151,7 +148,7 @@ if [ ! -d "/usr/local/go" ]; then
   mkdir -p $HOME/Downloads/
   cd $HOME/Downloads/
   wget https://golang.org/dl/go1.16.3.linux-amd64.tar.gz
-  sudo tar -xvf go1.16.3.linux-amd64.tar.gz -C /usr/local/
+ curl -sfL sudo tar -xvf go1.16.3.linux-amd64.tar.gz -C /usr/local/
 else
   echo "Go already installed"
 fi
@@ -160,9 +157,15 @@ fi
 cd $HOME
 go get github.com/jesseduffield/lazygit
 
-## {{ Install NodeJS }}
-#curl -fsSL https://deb.nodesource.com/setup_15.x | sudo -E bash -
-#sudo apt-get install -y nodejs
+# {{ Install NVM }}
+cd $HOME/git
+git clone https://github.com/nvm-sh/nvm.git .nvm
+cd .nvm
+git checkout v0.38.0
+. ./nvm.sh
+
+# {{ Install Node }}
+nvm install node
 
 # {{ Install tmux }}
 #sudo apt install tmux
@@ -201,8 +204,8 @@ sudo usermod -aG docker $USER
 DOCKER_DIR=/mnt/wsl/shared-docker
 mkdir -pm o=,ug=rwx "$DOCKER_DIR"
 chgrp docker "$DOCKER_DIR"
-mkdir -p /etc/docker
-ln -s $HOME/git/linux-settings/docker/daemon.json /etc/docker/daemon.json
+sudo mkdir -p /etc/docker
+sudo ln -s $HOME/git/linux-settings/docker/daemon.json /etc/docker/daemon.json
 mkdir -p $HOME/.local/bin/docker
 ln -s $HOME/git/linux-settings/docker/docker-service $HOME/.local/bin/docker/docker-service
 

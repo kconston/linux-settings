@@ -25,8 +25,10 @@ zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
 
 alias vim='nvim'
 alias vi='nvim'
-alias nv='nv.sh'
+#alias nv='nv.sh'
 alias browse='explorer.exe .'
+alias gitdir="cd $HOME/git"
+alias nvmupgrade=". $HOME/git/linux-settings/scripts/nvm_upgrade.sh"
 
 alias settings='cd $HOME/git/linux-settings'
 
@@ -37,3 +39,7 @@ fi
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+
+export NVM_DIR="$HOME/git/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completionr

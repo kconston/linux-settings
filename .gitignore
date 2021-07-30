@@ -1,8 +1,7 @@
 #Ignore everything
 *
 #Except
-!scripts
-!scripts/nv.sh
+!scripts/*
 !setup.sh
 !.gitignore
 !.vimrc

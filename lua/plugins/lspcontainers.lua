@@ -72,11 +72,6 @@ local function setup(config, server)
   --  ]], false)
   --end
 
-  --if server == "terraformls" then
-  --  config.cmd = lspcontainers.command(server)
-  --  config.filetypes = { "hcl", "tf", "terraform", "tfvars" }
-  --end
-
   if server == "tsserver" then
     config.before_init = function(params)
       params.processId = vim.NIL

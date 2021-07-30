@@ -108,7 +108,8 @@ local function setup_servers()
   --local servers = { "sumneko_lua", "pyright" }
   local lspconfig_servers = {
     "bashls",
-    "sumneko_lua"
+    "sumneko_lua",
+    "tsserver"
   }
 
   for _, server in pairs(lspconfig_servers) do
