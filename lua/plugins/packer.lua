@@ -14,7 +14,13 @@ function PackerInit()
   require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
+    -- LSP
     use 'neovim/nvim-lspconfig'
+    use {
+      'lspcontainers/lspcontainers.nvim',
+      requires = {'neovim/nvim-lspconfig'}
+    }
+
     use {
       'hrsh7th/nvim-compe',
       requires = { 'neovim/nvim-lspconfig' }

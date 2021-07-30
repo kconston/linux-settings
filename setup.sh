@@ -1,6 +1,8 @@
 #!/bin/sh
+a=('one' 'two' 'three')
 
 current_dir=$(pwd)
+
 
 mkdir $HOME/git
 
@@ -189,7 +191,7 @@ go get github.com/jesseduffield/lazygit
 #	echo 'Poetry already installed'
 #fi
 
-# {{ Install Docker }}
+# {{ Install Docker Engine }}
 sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release 
 curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
 echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
@@ -203,6 +205,11 @@ mkdir -p /etc/docker
 ln -s $HOME/git/linux-settings/docker/daemon.json /etc/docker/daemon.json
 mkdir -p $HOME/.local/bin/docker
 ln -s $HOME/git/linux-settings/docker/docker-service $HOME/.local/bin/docker/docker-service
+
+# {{ Install Docker Compose }}
+sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+sudo chmod +x /usr/local/bin/docker-compose
+sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 
 cd $current_dir

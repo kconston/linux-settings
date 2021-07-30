@@ -105,35 +105,45 @@ end
 -- lsp-install
 local function setup_servers()
   -- TODO: Find a better approach to autoinstalling LSPs
-  local servers = { "sumneko_lua", "pyright" }
+  --local servers = { "sumneko_lua", "pyright" }
+  local lspconfig_servers = {
+    "bashls",
+    "sumneko_lua"
+  }
+
+  for _, server in pairs(lspconfig_servers) do
+    local config = make_config()
+    require "plugins.lspcontainers".setup(config,server)
+    require "lspconfig"[server].setup(config)
+  end
 
   -- setup installed servers
-  for _, server in pairs(servers) do
-    local c = make_config()
+  --for _, server in pairs(servers) do
+  --  local c = make_config()
 
-    -- language specific configs
-    if server == "sumneko_lua" then
-      local system_name = sumneko_system_name()
-      --local sumneko_root_path = vim.fn.stdpath('cache')..'/home/kenneec/lua-language-server'
-			local sumneko_root_path = '/home/kenneec/lua-language-server'
-      local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
+  --  -- language specific configs
+  --  if server == "sumneko_lua" then
+  --    local system_name = sumneko_system_name()
+  --    --local sumneko_root_path = vim.fn.stdpath('cache')..'/home/kenneec/lua-language-server'
+	--		local sumneko_root_path = '/home/kenneec/lua-language-server'
+  --    local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
 
-      c.cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" }
-      c.settings = lua_settings
-    end
+  --    c.cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" }
+  --    c.settings = lua_settings
+  --  end
 
-		if server == "pyright" then
-			--c.root_dir = require'lspconfig'.util.root_pattern('/venv');
-      c.root_dir = require'lspconfig'.util.root_pattern('pyproject.toml');
-		end
+	--	if server == "pyright" then
+	--		--c.root_dir = require'lspconfig'.util.root_pattern('/venv');
+  --    c.root_dir = require'lspconfig'.util.root_pattern('pyproject.toml');
+	--	end
 
-		if server == "groovyls" then
-			c.cmd = { "java", "-jar", "/home/kenneec/groovy-language-server/build/libs/groovy-language-server-all.jar" }
-		end
+	--	if server == "groovyls" then
+	--		c.cmd = { "java", "-jar", "/home/kenneec/groovy-language-server/build/libs/groovy-language-server-all.jar" }
+	--	end
 
-    -- language server setup
-    require'lspconfig'[server].setup(c)
-  end
+  --  -- language server setup
+  --  require'lspconfig'[server].setup(c)
+  --end
 end
 
 local function init()
