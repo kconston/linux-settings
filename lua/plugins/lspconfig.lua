@@ -40,32 +40,6 @@ local on_attach = function(client, bufnr)
   end
 end
 
-local lua_settings = {
-  Lua = {
-    runtime = {
-      -- Tell the language server which version of Lua you're using (most likely LuaJIT in the case of Neovim)
-      version = 'LuaJIT',
-      -- Setup your lua path
-      path = vim.split(package.path, ';'),
-    },
-    diagnostics = {
-      -- Get the language server to recognize the `vim` global
-      globals = {'vim'},
-    },
-    workspace = {
-    -- Make the server aware of Neovim runtime files
-    library = {
-      [vim.fn.expand('$VIMRUNTIME/lua')] = true,
-      [vim.fn.expand('$VIMRUNTIME/lua/vim/lsp')] = true,
-    },
-    },
-    -- Do not send telemetry data containing a randomized but unique identifier
-    telemetry = {
-      enable = false,
-    },
-  },
-}
-
 -- config that activates keymaps and enables snippet support
 local function make_config()
   local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -86,28 +60,12 @@ local function make_config()
   }
 end
 
-local function sumneko_system_name()
-  local system_name
-
-  if vim.fn.has("mac") == 1 then
-    system_name = "macOS"
-  elseif vim.fn.has("unix") == 1 then
-    system_name = "Linux"
-  elseif vim.fn.has('win32') == 1 then
-    system_name = "Windows"
-  else
-    print("Unsupported system for sumneko")
-  end
-
-  return system_name
-end
-
--- lsp-install
 local function setup_servers()
-  -- TODO: Find a better approach to autoinstalling LSPs
-  --local servers = { "sumneko_lua", "pyright" }
   local lspconfig_servers = {
     "bashls",
+    "dockerls",
+    "gopls",
+    "html",
     "sumneko_lua",
     "tsserver"
   }
@@ -124,15 +82,6 @@ local function setup_servers()
 
   --  -- language specific configs
   --  if server == "sumneko_lua" then
-  --    local system_name = sumneko_system_name()
-  --    --local sumneko_root_path = vim.fn.stdpath('cache')..'/home/kenneec/lua-language-server'
-	--		local sumneko_root_path = '/home/kenneec/lua-language-server'
-  --    local sumneko_binary = sumneko_root_path.."/bin/"..system_name.."/lua-language-server"
-
-  --    c.cmd = { sumneko_binary, "-E", sumneko_root_path .. "/main.lua" }
-  --    c.settings = lua_settings
-  --  end
-
 	--	if server == "pyright" then
 	--		--c.root_dir = require'lspconfig'.util.root_pattern('/venv');
   --    c.root_dir = require'lspconfig'.util.root_pattern('pyproject.toml');

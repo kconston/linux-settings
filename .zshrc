@@ -29,8 +29,8 @@ alias vi='nvim'
 alias browse='explorer.exe .'
 alias gitdir="cd $HOME/git"
 alias nvmupgrade=". $HOME/git/linux-settings/scripts/nvm_upgrade.sh"
-
 alias settings='cd $HOME/git/linux-settings'
+alias python=python3.9
 
 if [ -z "SSH_AUTH_SOCK" ] ; then
   eval `ssh-agent -s`
@@ -43,3 +43,5 @@ fi
 export NVM_DIR="$HOME/git/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completionr
+
+export PATH="$HOME/.poetry/bin:$PATH"

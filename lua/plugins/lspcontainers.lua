@@ -37,22 +37,22 @@ local function setup(config, server)
     config.root_dir = util.root_pattern(".git", vim.fn.getcwd())
   end
 
-  --if server == "dockerls" then
-  --  config.before_init = function(params)
-  --    params.processId = vim.NIL
-  --  end
+  if server == "dockerls" then
+    config.before_init = function(params)
+      params.processId = vim.NIL
+    end
 
-  --  config.cmd = lspcontainers.command(server)
-  --  config.root_dir = util.root_pattern(".git", vim.fn.getcwd())
-  --end
+    config.cmd = lspcontainers.command(server)
+    config.root_dir = util.root_pattern(".git", vim.fn.getcwd())
+  end
 
-  --if server == "gopls" then
-  --  config.cmd = lspcontainers.command(server)
-  --end
+  if server == "gopls" then
+    config.cmd = lspcontainers.command(server)
+  end
 
-  --if server == "html" then
-  --  config.cmd = lspcontainers.command(server)
-  --end
+  if server == "html" then
+    config.cmd = lspcontainers.command(server)
+  end
 
   --if server == "pylsp" then
   --  config.cmd = lspcontainers.command(server)
@@ -63,15 +63,6 @@ local function setup(config, server)
     config.settings = lua_settings
   end
 
-  --if server == "rust_analyzer" then
-  --  --config.cmd = lspcontainers.command(server)
-  --  --config.root_dir = util.root_pattern(".git", vim.fn.getcwd())
-
-  --  vim.api.nvim_exec([[
-  --    autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs :lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "NonText", enabled = {"TypeHint", "ChainingHint", "ParameterHint" } }
-  --  ]], false)
-  --end
-
   if server == "tsserver" then
     config.before_init = function(params)
       params.processId = vim.NIL
@@ -80,15 +71,6 @@ local function setup(config, server)
     config.cmd = lspcontainers.command(server)
     config.root_dir = util.root_pattern(".git", vim.fn.getcwd())
   end
-
-  --if server == "yamlls" then
-  --  config.before_init = function(params)
-  --    params.processId = vim.NIL
-  --  end
-
-  --  config.cmd = lspcontainers.command(server)
-  --  config.root_dir = util.root_pattern(".git", vim.fn.getcwd())
-  --end
 end
 
 return {

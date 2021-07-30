@@ -166,6 +166,19 @@ git checkout v0.38.0
 
 # {{ Install Node }}
 nvm install node
+npm install -g neovim
+
+# {{ Install Python }}
+sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
+cd $HOME/Downloads
+wget https://www.python.org/ftp/python/3.9.1/Python-3.9.1.tgz
+tar -xf Python-3.9.1.tgz
+cd Python-3.9.1
+./configure --enable-optimizations
+make -j 8
+sudo make altinstall
+sudo apt install python3-distutils
+
 
 # {{ Install tmux }}
 #sudo apt install tmux
@@ -187,12 +200,12 @@ nvm install node
 #fi
 
 # {{ Install Poetry }}
-#if ! command -v poetry &> /dev/null 
-#then
-#	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python -
-#else 
-#	echo 'Poetry already installed'
-#fi
+if ! command -v poetry &> /dev/null 
+then
+	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | /usr/local/bin/python3.9 -
+else 
+	echo 'Poetry already installed'
+fi
 
 # {{ Install Docker Engine }}
 sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release 

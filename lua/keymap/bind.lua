@@ -14,6 +14,7 @@ local function normal_noremap()
   map('n', '<leader>nhl', ':nohl<CR>', options)
   map('n', '<leader>qns', ':qa!<CR>', options)
   map('n', '<leader>lll', '<C-w>v<CR>', options)
+  map('n', '<leader>rln', ':set relativenumber!<CR>:set number!<CR>', options)
 
   --Quick Reload
   map('n', '<leader>rl', ':source %<CR>', options)
