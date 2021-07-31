@@ -10,6 +10,7 @@ local function keymap()
 end
 
 local function init()
+  --FIXME: update the paths here
 	require'dap-python'.setup('/home/kenneec/.virtualenvs/debugpy/bin/python3.8', { console = 'integratedTerminal' })
 	require'telescope'.load_extension('dap')
 	require'dap'.defaults.python.terminal_win_cmd = '70vsplit new';
@@ -21,6 +22,7 @@ end
 local function init2()
 	require'dap'.adapters.python = {
 	  type = 'executable';
+    --FIXME: Update the paths here
 	  command = '/home/kenneec/.virtualenvs/debugpy/bin/python3.8';
 	  args = { '-m', 'debugpy.adapter' };
 	}
@@ -32,7 +34,8 @@ local function init2()
 			console = "integratedTerminal";
 			--windowSplit = '80vsplit new';
 
-			program = "${file}"; 
+      --FIXME: Update the paths here
+			program = "${file}";
 			pythonPath = function()
 	      local cwd = vim.fn.getcwd()
 	      if vim.fn.executable(cwd .. '/venv/bin/python3.8') then

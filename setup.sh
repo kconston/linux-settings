@@ -1,7 +1,16 @@
-#!/bin/sh
+
 current_dir=$(pwd)
 
 mkdir $HOME/git
+
+# {{ Update }}
+sudo apt update
+
+# {{ Install Curl }}
+sudo apt install curl
+
+# {{ Install wget }}
+sudo apt install wget
 
 while getopts "e:f:" opt;
 do
@@ -13,9 +22,6 @@ done
 
 echo "Email value: $email"
 echo "Full name value: $fullname"
-
-# {{ Update }}
-sudo apt update
 
 # {{ Generate SSH }}
 if [ -f "$HOME/.ssh/id_ed25519" ]; then
@@ -41,8 +47,6 @@ if [ ! -z ${fullname+x} ]; then
    echo "Setting user.name to $fullname"
    git config --global user.name "$fullname" 
 fi
-
-sudo apt install curl
 
 # {{ Install zsh }}
 if [ -x "$(command -v zsh)" ]; then
@@ -131,8 +135,6 @@ sudo apt install openjdk-11-jdk
 ## {{ Install Jedi }}
 /usr/local/bin/python3.9 -m pip install jedi
 
-sudo apt install wget
-
 # {{ Install Go }}
 if [ ! -d "/usr/local/go" ]; then
   mkdir -p $HOME/Downloads/
@@ -144,7 +146,6 @@ else
 fi
 
 # {{ Install LazyGit }}
-cd $HOME
 go get github.com/jesseduffield/lazygit
 
 # {{ Install NVM }}
@@ -218,7 +219,6 @@ ln -s $HOME/git/linux-settings/docker/docker-service $HOME/.local/bin/docker/doc
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-
 
 cd $current_dir
 echo 'Done!'
