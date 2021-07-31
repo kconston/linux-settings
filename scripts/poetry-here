@@ -1,0 +1,4 @@
+#!/usr/bin/env zsh
+echo "layout poetry" >.envrc
+direnv allow .
+direnv exec . echo

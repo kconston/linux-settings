@@ -113,13 +113,6 @@ ln -s $HOME/git/linux-settings/lua $HOME/.config/nvim/lua
 #nvim --headless +PackerCompile +PackerSync
 nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-#if [ ! -f "$HOME/.local/bin/nv.sh" ]; then
-#  ln -s $HOME/git/linux-settings/scripts/nv.sh $HOME/.local/bin/nv.sh
-#  chmod u+x $HOME/.local/bin/nv.sh
-#else
-#  echo "neovim nightly already executable"
-#fi
-
 # {{ Install Ranger }}
 sudo apt install ranger
 
@@ -129,17 +122,14 @@ sudo apt install ripgrep
 # {{ Install Java }}
 sudo apt install openjdk-11-jdk
 
-## {{ Install Pynvim }}
-#pip3 install pynvim
-#
 ## {{ Install PyLint }}
-#pip3 install pylint
-#
+/usr/local/bin/python3.9 -m pip install pylint
+
 ## {{ Install Rope }}
-#pip3 install rope
-#
+/usr/local/bin/python3.9 -m pip install rope
+
 ## {{ Install Jedi }}
-#pip3 install jedi
+/usr/local/bin/python3.9 -m pip install jedi
 
 sudo apt install wget
 
@@ -148,7 +138,7 @@ if [ ! -d "/usr/local/go" ]; then
   mkdir -p $HOME/Downloads/
   cd $HOME/Downloads/
   wget https://golang.org/dl/go1.16.3.linux-amd64.tar.gz
- curl -sfL sudo tar -xvf go1.16.3.linux-amd64.tar.gz -C /usr/local/
+  sudo tar -xvf go1.16.3.linux-amd64.tar.gz -C /usr/local/
 else
   echo "Go already installed"
 fi
@@ -179,30 +169,32 @@ make -j 8
 sudo make altinstall
 sudo apt install python3-distutils
 
+# {{ Install Pip3 }}
+/usr/local/bin/python3.9 -m pip install python3-pip 
 
-# {{ Install tmux }}
-#sudo apt install tmux
-#cd $HOME 
-#if [ ! -d "$HOME/.tmux/" ]; then
-#  git clone https://github.com/gpakosz/.tmux.git
-#  ln -sf $HOME/.tmux/.tmux.conf
-#  ln -sf $HOME/git/linux-settings/.tmux.conf.local
-#else
-#  echo 'Tmux already installed'
-#fi
+# {{ Install PyNvim }}
+/usr/local/bin/python3.9 -m pip install pynvim
 
 # {{ Install DirEnv }}
-#if ! command -v direnv &> /dev/null
-#then
-#	curl -sfL https://direnv.net/install.sh | bash 
-#else 
-#	echo 'DirEnv already installed'
-#fi
+if ! command -v direnv &> /dev/null
+then
+  cd $HOME/git
+  git clone https://github.com/direnv/direnv.git
+  cd direnv
+  make
+  sudo make install
+  cd $HOME
+  ln -s $HOME/git/linux-settings/.direnvrc .direnvrc
+else 
+	echo 'DirEnv already installed'
+fi
 
 # {{ Install Poetry }}
 if ! command -v poetry &> /dev/null 
 then
 	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | /usr/local/bin/python3.9 -
+  cd $HOME/.local/bin
+  ln -s $HOME/git/linux-settings/scripts/poetry-here poetry-here
 else 
 	echo 'Poetry already installed'
 fi

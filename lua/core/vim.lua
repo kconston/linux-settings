@@ -37,7 +37,7 @@ local set_autocmd = function()
 end
 
 local function init()
-  vim.g.python3_host_prog = "$HOME/.virtualenvs/nvim3.8/bin/python3.8"
+  vim.g.python3_host_prog = "/usr/local/bin/python3.9"
   set_vim_g()
   set_vim_o()
   set_vim_wo()
