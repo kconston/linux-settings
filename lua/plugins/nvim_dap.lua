@@ -11,9 +11,11 @@ end
 
 local function init()
   --FIXME: update the paths here
-	require'dap-python'.setup('/home/kenneec/.virtualenvs/debugpy/bin/python3.8', { console = 'integratedTerminal' })
+	require'dap-python'.setup('~/.local/share/virtualenv/debugpy/bin/python', { console = 'integratedTerminal' })
+  --~/.local/share/virtualenv/debugpy/bin/python
 	require'telescope'.load_extension('dap')
 	require'dap'.defaults.python.terminal_win_cmd = '70vsplit new';
+  require'dap'.set_log_level('TRACE')
 	vim.fn.sign_define('DapBreakpoint', {text='🛑', texthl='', linehl='', numhl=''})
 
 	keymap()

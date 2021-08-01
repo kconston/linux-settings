@@ -126,15 +126,6 @@ sudo apt install ripgrep
 # {{ Install Java }}
 sudo apt install openjdk-11-jdk
 
-## {{ Install PyLint }}
-/usr/local/bin/python3.9 -m pip install pylint
-
-## {{ Install Rope }}
-/usr/local/bin/python3.9 -m pip install rope
-
-## {{ Install Jedi }}
-/usr/local/bin/python3.9 -m pip install jedi
-
 # {{ Install Go }}
 if [ ! -d "/usr/local/go" ]; then
   mkdir -p $HOME/Downloads/
@@ -159,7 +150,7 @@ git checkout v0.38.0
 nvm install node
 npm install -g neovim
 
-# {{ Install Python }}
+# {{ Install Python 3.9 }}
 sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
 cd $HOME/Downloads
 wget https://www.python.org/ftp/python/3.9.1/Python-3.9.1.tgz
@@ -171,14 +162,16 @@ sudo make altinstall
 sudo apt install python3-distutils
 
 # {{ Install Pip3 }}
-/usr/local/bin/python3.9 -m pip install python3-pip 
+#/usr/local/bin/python3.9 -m pip install python3-pip 
 
-# {{ Install PyNvim }}
-/usr/local/bin/python3.9 -m pip install pynvim
-
-# {{ Install DirEnv }}
-if ! command -v direnv &> /dev/null
-then
+## {{ Install PyLint }}
+python3.9 -m pip install pylint
+                               # {{ Install PyNvim }}
+## {{ Install Rope }}          python3.9 -m pip install pynvim
+python3.9 -m pip install rope
+                               # {{ Install DirEnv }}
+## {{ Install Jedi }}          if ! command -v direnv &> /dev/null
+python3.9 -m pip install jedi  then
   cd $HOME/git
   git clone https://github.com/direnv/direnv.git
   cd direnv
@@ -193,7 +186,7 @@ fi
 # {{ Install Poetry }}
 if ! command -v poetry &> /dev/null 
 then
-	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | /usr/local/bin/python3.9 -
+	curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python3.9 -
   cd $HOME/.local/bin
   ln -s $HOME/git/linux-settings/scripts/poetry-here poetry-here
 else 

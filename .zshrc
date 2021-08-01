@@ -1,4 +1,5 @@
 sudo service docker status || sudo service docker start
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -33,9 +34,11 @@ alias browse='explorer.exe .'
 alias gitdir="cd $HOME/git"
 alias nvmupgrade=". $HOME/git/linux-settings/scripts/nvm_upgrade.sh"
 alias settings='cd $HOME/git/linux-settings'
-alias python=python3.9
+#alias python=python3.9
 alias lazygit="$HOME/go/bin/lazygit"
 alias lg=lazygit
+alias down="cd $HOME/Downloads"
+alias plugins="cd $HOME/git/linux-settings/lua/plugins"
 
 if [ -z "SSH_AUTH_SOCK" ] ; then
   eval `ssh-agent -s`
@@ -51,4 +54,4 @@ export NVM_DIR="$HOME/git/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completionr
 
-export PATH="$HOME/.poetry/bin:$HOME/.local/bin:$PATH:/usr/local/go/bin:$HOME/git/lazygit:$HOME/go/bin"
+export PATH="$HOME/.poetry/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/git/lazygit:$HOME/go/bin:$PATH"
