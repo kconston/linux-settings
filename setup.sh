@@ -115,7 +115,7 @@ ln -s $HOME/git/linux-settings/lua $HOME/.config/nvim/lua
 
 # {{ Install Packer }}
 #nvim --headless +PackerCompile +PackerSync
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+#nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
 # {{ Install Ranger }}
 sudo apt install ranger
@@ -212,6 +212,8 @@ ln -s $HOME/git/linux-settings/docker/docker-service $HOME/.local/bin/docker/doc
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
+
+%docker ALL=(ALL)  NOPASSWD: /usr/bin/dockerd
 
 cd $current_dir
 echo 'Done!'
