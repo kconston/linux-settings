@@ -11,8 +11,7 @@ end
 
 local function init()
   --FIXME: update the paths here
-	require'dap-python'.setup('~/.local/share/virtualenv/debugpy/bin/python', { console = 'integratedTerminal' })
-  --~/.local/share/virtualenv/debugpy/bin/python
+	require'dap-python'.setup('~/.virtualenvs/debugpy/bin/python', { console = 'integratedTerminal' })
 	require'telescope'.load_extension('dap')
 	require'dap'.defaults.python.terminal_win_cmd = '70vsplit new';
   require'dap'.set_log_level('TRACE')

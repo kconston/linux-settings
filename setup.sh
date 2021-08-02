@@ -1,7 +1,8 @@
 
 current_dir=$(pwd)
 
-mkdir $HOME/git
+mkdir $HOME/.virtualenvs
+
 
 # {{ Update }}
 sudo apt update
@@ -166,19 +167,23 @@ sudo apt install python3-distutils
 
 ## {{ Install PyLint }}
 python3.9 -m pip install pylint
-                               # {{ Install PyNvim }}
-## {{ Install Rope }}          python3.9 -m pip install pynvim
+
+## {{ Install Rope }}          
 python3.9 -m pip install rope
-                               # {{ Install DirEnv }}
-## {{ Install Jedi }}          if ! command -v direnv &> /dev/null
-python3.9 -m pip install jedi  then
+                               
+## {{ Install Jedi }}         
+python3.9 -m pip install jedi
+
+# {{ Install DirEnv }}
+if ! command -v direnv &> /dev/null
+then
   cd $HOME/git
   git clone https://github.com/direnv/direnv.git
   cd direnv
   make
   sudo make install
   cd $HOME
-  ln -s $HOME/git/linux-settings/.direnvrc .direnvrc
+  ln -s $HOME/git/linux-settings/scripts/.direnvrc .direnvrc
 else 
 	echo 'DirEnv already installed'
 fi
@@ -192,6 +197,23 @@ then
 else 
 	echo 'Poetry already installed'
 fi
+
+# {{ Install Venv }}
+sudo apt install python3-venv
+
+# {{ Install Pynvim }}
+cd $HOME/.virtualenvs
+python3 -m venv nvim
+cd nvim/bin
+./pip3.7 install wheel
+./pip3.7 install pynvim
+
+# {{ Install Debugpy }}
+cd $HOME/.virtualenvs
+python3 -m venv debugpy
+cd debupy/bin
+./python -m pip install debugpy
+
 
 # {{ Install Docker Engine }}
 sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release 
@@ -212,8 +234,6 @@ ln -s $HOME/git/linux-settings/docker/docker-service $HOME/.local/bin/docker/doc
 sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 sudo chmod +x /usr/local/bin/docker-compose
 sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
-
-%docker ALL=(ALL)  NOPASSWD: /usr/bin/dockerd
 
 cd $current_dir
 echo 'Done!'

@@ -37,7 +37,7 @@ local set_autocmd = function()
 end
 
 local function init()
-  vim.g.python3_host_prog = "~/.virtualenvs/debugpy/bin"
+  vim.g.python3_host_prog = "~/.virtualenvs/nvim/bin"
   set_vim_g()
   set_vim_o()
   set_vim_wo()
