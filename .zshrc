@@ -8,17 +8,12 @@ if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]
   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
-export EDITOR=nvim
-
-export ZSH="/home/kconston/.oh-my-zsh"
-
-# ZSH_THEME="spaceship"
 ZSH_THEME="powerlevel10k/powerlevel10k"
-
-# Uncomment the following line to disable colors in ls.
-# DISABLE_LS_COLORS="true"
-
 plugins=(git zsh-autosuggestions)
+
+export PATH="$HOME/.poetry/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/git/lazygit:$HOME/go/bin:$PATH"
+export EDITOR=nvim
+export ZSH="/home/kconston/.oh-my-zsh"
 
 source $ZSH/oh-my-zsh.sh
 
@@ -35,7 +30,6 @@ alias browse='explorer.exe .'
 alias gitdir="cd $HOME/git"
 alias nvmupgrade=". $HOME/git/linux-settings/scripts/nvm_upgrade.sh"
 alias settings='cd $HOME/git/linux-settings'
-#alias python=python3.9
 alias lazygit="$HOME/go/bin/lazygit"
 alias lg=lazygit
 alias down="cd $HOME/Downloads"
@@ -46,8 +40,6 @@ if [ -z "SSH_AUTH_SOCK" ] ; then
   eval `ssh-add`
 fi
 
-eval "$(direnv hook zsh)"
-
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
@@ -55,4 +47,4 @@ export NVM_DIR="$HOME/git/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completionr
 
-export PATH="$HOME/.poetry/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/git/lazygit:$HOME/go/bin:$PATH"
+eval "$(direnv hook zsh)"
