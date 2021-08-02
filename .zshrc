@@ -1,4 +1,5 @@
-sudo service docker status || sudo service docker start
+#sudo service docker status || sudo service docker start
+service docker status > /dev/null || sudo service docker start
 
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
