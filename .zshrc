@@ -1,6 +1,3 @@
-#sudo service docker status || sudo service docker start
-service docker status > /dev/null || sudo service docker start
-
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -25,8 +22,6 @@ source $ZSH/oh-my-zsh.sh
 export LS_COLORS="di=34;40:ln=36;40:so=35;40:pi=33;40:ex=32;40:bd=1;33;40:cd=1;33;40:su=0;41:sg=0;43:tw=0;42:ow=36:"
 export LS_COLORS=$LS_COLORS:'ow=1;34:';
 zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
-
-[ -d /mnt/wsl ] && export DOCKER_HOST="unix:///mnt/wsl/shared-docker/docker.sock"
 
 alias vim='nvim'
 alias vi='nvim'
@@ -56,3 +51,11 @@ export NVM_DIR="$HOME/git/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completionr
 
 export PATH="$HOME/.poetry/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/git/lazygit:$HOME/go/bin:$PATH"
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="/home/kconston/.sdkman"
+[[ -s "/home/kconston/.sdkman/bin/sdkman-init.sh" ]] && source "/home/kconston/.sdkman/bin/sdkman-init.sh"
+
+export PATH=/home/kconston/bin:$PATH
+
+[[ -e "/home/kconston/lib/oracle-cli/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/home/kconston/lib/oracle-cli/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh"

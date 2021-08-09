@@ -162,9 +162,6 @@ make -j 8
 sudo make altinstall
 sudo apt install python3-distutils
 
-# {{ Install Pip3 }}
-#/usr/local/bin/python3.9 -m pip install python3-pip 
-
 ## {{ Install PyLint }}
 python3.9 -m pip install pylint
 
@@ -213,27 +210,6 @@ cd $HOME/.virtualenvs
 python3 -m venv debugpy
 cd debupy/bin
 ./python -m pip install debugpy
-
-
-# {{ Install Docker Engine }}
-sudo apt install apt-transport-https ca-certificates curl gnupg lsb-release 
-curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-sudo apt update
-sudo apt install docker-ce docker-ce-cli containerd.io
-sudo usermod -aG docker $USER
-DOCKER_DIR=/mnt/wsl/shared-docker
-mkdir -pm o=,ug=rwx "$DOCKER_DIR"
-chgrp docker "$DOCKER_DIR"
-sudo mkdir -p /etc/docker
-sudo ln -s $HOME/git/linux-settings/docker/daemon.json /etc/docker/daemon.json
-mkdir -p $HOME/.local/bin/docker
-ln -s $HOME/git/linux-settings/docker/docker-service $HOME/.local/bin/docker/docker-service
-
-# {{ Install Docker Compose }}
-sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-sudo ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
 
 cd $current_dir
 echo 'Done!'

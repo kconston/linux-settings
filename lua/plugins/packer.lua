@@ -14,6 +14,8 @@ function PackerInit()
   require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
 
+    use 'mfussenegger/nvim-jdtls'
+
     -- LSP
     use 'neovim/nvim-lspconfig'
     use {

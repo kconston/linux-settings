@@ -1,3 +1,10 @@
+local function set_lspaugroup()
+  vim.api.nvim_command("augroup lsp")
+  vim.api.nvim_command("autocmd!")
+  vim.api.nvim_command("autocmd FileType java lua require'jdtls'.start_or_attach({cmd = {'/home/kconston/jdts-launch-script.sh'}})")
+  vim.api.nvim_command("augroup END")
+end
+
 local set_vim_g = function()
   vim.g.mapleader = " "
 end
@@ -38,6 +45,7 @@ end
 
 local function init()
   vim.g.python3_host_prog = "~/.virtualenvs/nvim/bin"
+  set_lspaugroup()
   set_vim_g()
   set_vim_o()
   set_vim_wo()
