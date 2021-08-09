@@ -205,5 +205,12 @@ python3 -m venv debugpy
 cd debupy/bin
 ./python -m pip install debugpy
 
+# {{ Install NNN }}
+sudo apt-get install pkg-config libncursesw5-dev libreadline-dev
+cd $HOME/git
+git clone git@github.com:jarun/nnn.git
+cd nnn
+sudo make strip install
+
 cd $current_dir
 echo 'Done!'

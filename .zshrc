@@ -9,7 +9,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git zsh-autosuggestions)
 
 export PATH="$HOME/.poetry/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/git/lazygit:$HOME/go/bin:$PATH"
-export EDITOR=nvim
+export EDITOR=ewrap
 export ZSH="/home/kconston/.oh-my-zsh"
 
 source $ZSH/oh-my-zsh.sh
@@ -29,6 +29,7 @@ alias lazygit="$HOME/go/bin/lazygit"
 alias lg=lazygit
 alias down="cd $HOME/Downloads"
 alias plugins="cd $HOME/git/linux-settings/lua/plugins"
+alias ls='nnn -de'
 
 if [ -z "SSH_AUTH_SOCK" ] ; then
   eval `ssh-agent -s`
@@ -49,5 +50,34 @@ export SDKMAN_DIR="/home/kconston/.sdkman"
 export PATH=/home/kconston/bin:$PATH
 
 [[ -e "/home/kconston/lib/oracle-cli/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh" ]] && source "/home/kconston/lib/oracle-cli/lib/python3.7/site-packages/oci_cli/bin/oci_autocomplete.sh"
+
+# NNN
+n ()
+{
+    # Block nesting of nnn in subshells
+    if [ -n $NNNLVL ] && [ "${NNNLVL:-0}" -ge 1 ]; then
+        echo "nnn is already running"
+        return
+    fi
+
+    # The default behaviour is to cd on quit (nnn checks if NNN_TMPFILE is set)
+    # To cd on quit only on ^G, remove the "export" as in:
+    #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    # NOTE: NNN_TMPFILE is fixed, should not be modified
+    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+
+    # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
+    # stty start undef
+    # stty stop undef
+    # stty lwrap undef
+    # stty lnext undef
+
+    nnn "$@"
+
+    if [ -f "$NNN_TMPFILE" ]; then
+            . "$NNN_TMPFILE"
+            rm -f "$NNN_TMPFILE" > /dev/null
+    fi
+}
 
 eval "$(direnv hook zsh)"
