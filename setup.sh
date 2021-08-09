@@ -174,13 +174,7 @@ python3.9 -m pip install jedi
 # {{ Install DirEnv }}
 if ! command -v direnv &> /dev/null
 then
-  cd $HOME/git
-  git clone https://github.com/direnv/direnv.git
-  cd direnv
-  make
-  sudo make install
-  cd $HOME
-  ln -s $HOME/git/linux-settings/scripts/.direnvrc .direnvrc
+  go get github.com/direnv/direnv/
 else 
 	echo 'DirEnv already installed'
 fi
