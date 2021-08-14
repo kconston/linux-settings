@@ -118,9 +118,6 @@ ln -s $HOME/git/linux-settings/lua $HOME/.config/nvim/lua
 #nvim --headless +PackerCompile +PackerSync
 #nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
 
-# {{ Install Ranger }}
-sudo apt install ranger
-
 # {{ Install RipGrep }}
 sudo apt install ripgrep
 
@@ -135,6 +132,23 @@ if [ ! -d "/usr/local/go" ]; then
   sudo tar -xvf go1.16.3.linux-amd64.tar.gz -C /usr/local/
 else
   echo "Go already installed"
+fi
+
+# {{ Install tmux }}
+sudo apt-get install libevent-dev ncurses-dev build-essential bison pkg-config
+cd $HOME/git
+if [ ! -d "$HOME/.tmux/" ]; then
+  git clone https://github.com/tmux/tmux.git
+  cd tmux
+  sh autogen.sh
+  ./configure
+  make && sudo make install
+  cd $HOME/git
+  git clone https://github.com/gpakosz/.tmux.git
+  ln -sf $HOME/.tmux/.tmux.conf
+  ln -sf $HOME/linux-settings/.tmux.conf.local
+else
+  echo 'Tmux already installed'
 fi
 
 # {{ Install LazyGit }}

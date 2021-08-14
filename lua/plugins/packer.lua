@@ -60,6 +60,11 @@ function PackerInit()
 
     use 'voldikss/vim-floaterm'
 
+    -- Sessions
+    use {
+      'rmagatti/auto-session'
+    }
+
     --Lualine
     use {
       'hoob3rt/lualine.nvim',

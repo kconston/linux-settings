@@ -7,9 +7,11 @@ fi
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git zsh-autosuggestions)
+export TERMINAL=xterm
+export DISPLAY="$(netsh.exe interface ip show address "Wi-Fi"|awk '/IP Address/ {print $3}'|sed 's/\r//'):0"
 
 export PATH="$HOME/.poetry/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/git/lazygit:$HOME/go/bin:$PATH"
-export EDITOR=ewrap
+export EDITOR=nvim
 export ZSH="/home/kconston/.oh-my-zsh"
 
 source $ZSH/oh-my-zsh.sh
@@ -29,7 +31,6 @@ alias lazygit="$HOME/go/bin/lazygit"
 alias lg=lazygit
 alias down="cd $HOME/Downloads"
 alias plugins="cd $HOME/git/linux-settings/lua/plugins"
-alias ls='nnn -de'
 
 if [ -z "SSH_AUTH_SOCK" ] ; then
   eval `ssh-agent -s`
@@ -64,14 +65,16 @@ n ()
     # To cd on quit only on ^G, remove the "export" as in:
     #     NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
     # NOTE: NNN_TMPFILE is fixed, should not be modified
-    export NNN_TMPFILE="${XDG_CONFIG_HOME:-$HOME/.config}/nnn/.lastd"
+    export NNN_TMPFILE=/tmp/.lastd
+    export NNN_FIFO=/tmp/nnn.fifo
+
 
     # Unmask ^Q (, ^V etc.) (if required, see `stty -a`) to Quit nnn
     # stty start undef
     # stty stop undef
     # stty lwrap undef
     # stty lnext undef
-
+    
     nnn "$@"
 
     if [ -f "$NNN_TMPFILE" ]; then
@@ -79,5 +82,7 @@ n ()
             rm -f "$NNN_TMPFILE" > /dev/null
     fi
 }
+
+alias ll='n -Hde'
 
 eval "$(direnv hook zsh)"

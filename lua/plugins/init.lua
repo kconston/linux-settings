@@ -18,6 +18,8 @@ local function init()
   require "plugins.todo_comments".init()
   require "plugins.trouble".init()
 
+  require "plugins.auto_sessions".init()
+
   --debugger
   require "plugins.nvim_dap".init()
   require "plugins.dap_ui".init()
