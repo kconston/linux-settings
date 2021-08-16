@@ -165,6 +165,21 @@ git checkout v0.38.0
 nvm install node
 npm install -g neovim
 
+# {{ Install dotnet }}
+wget https://packages.microsoft.com/config/debian/10/packages-microsoft-prod.deb -O packages-microsoft-prod.deb
+sudo dpkg -i packages-microsoft-prod.deb
+rm packages-microsoft-prod.deb
+sudo apt update; \
+  sudo apt install -y apt-transport-https && \
+  sudo apt update && \
+  sudo apt install -y dotnet-sdk-5.0
+
+# {{ Install Omnisharp }}
+mkdir ~/bin/omnisharp
+curl -L -O "https://github.com/OmniSharp/omnisharp-roslyn/releases/download/v1.37.14/omnisharp-linux-x64.tar.gz" \
+   && tar -xf omnisharp-linux-x64.tar.gz -C ~/bin/omnisharp \
+   && rm omnisharp-linux-x64.tar.gz
+
 # {{ Install Python 3.9 }}
 sudo apt install build-essential zlib1g-dev libncurses5-dev libgdbm-dev libnss3-dev libssl-dev libsqlite3-dev libreadline-dev libffi-dev curl libbz2-dev
 cd $HOME/Downloads
@@ -225,6 +240,12 @@ cd $HOME/git
 git clone git@github.com:jarun/nnn.git
 cd nnn
 sudo make strip install
+
+# {{ Install Neofetch }}
+sudo apt install neofetch
+
+cd $HOME/git/linux-settings/
+source .zshrc
 
 cd $current_dir
 echo 'Done!'

@@ -66,6 +66,7 @@ local function setup_servers()
     "dockerls",
     "gopls",
     "html",
+    "omnisharp",
     "sumneko_lua",
     "tsserver"
   }
@@ -75,6 +76,10 @@ local function setup_servers()
     require "plugins.lspcontainers".setup(config,server)
     require "lspconfig"[server].setup(config)
   end
+
+  require'lspconfig'.omnisharp.setup{
+    cmd = {"/home/kconston/bin/omnisharp/run", "--languageserver"};
+  }
 
   -- setup installed servers
   --for _, server in pairs(servers) do

@@ -54,6 +54,10 @@ local function setup(config, server)
     config.cmd = lspcontainers.command(server)
   end
 
+  --if server == "omnisharp" then
+  --  config.cmd = lspcontainers.command(server)
+  --end
+
   --if server == "pylsp" then
   --  config.cmd = lspcontainers.command(server)
   --end

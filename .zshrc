@@ -1,3 +1,5 @@
+neofetch
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -7,7 +9,7 @@ fi
 
 ZSH_THEME="powerlevel10k/powerlevel10k"
 plugins=(git zsh-autosuggestions)
-export TERMINAL=xterm
+#export TERMINAL=xterm
 export DISPLAY="$(netsh.exe interface ip show address "Wi-Fi"|awk '/IP Address/ {print $3}'|sed 's/\r//'):0"
 
 export PATH="$HOME/.poetry/bin:$HOME/.local/bin:/usr/local/go/bin:$HOME/git/lazygit:$HOME/go/bin:$PATH"
